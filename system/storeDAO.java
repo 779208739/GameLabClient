@@ -81,4 +81,37 @@ public class storeDAO extends gameDAO{
 
         return gamesByKeyword;
     }
+    
+    //search games in specific type
+    public List<Integer> searchGamesByType(String input, String type){
+        String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
+                "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
+                "WHERE g.Type = ? AND" +
+                "(g.Description LIKE ? OR k.Keyword LIKE ?);";
+
+
+        List<Integer> games = new ArrayList<>();
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement stGames = conn.prepareStatement(query)) {
+
+            String keywordPattern = "%" + input + "%";
+            stGames.setString(1, type);
+            stGames.setString(2, keywordPattern);
+            stGames.setString(3, keywordPattern);
+
+            ResultSet rsGames = stGames.executeQuery();
+
+            while (rsGames.next()) {
+                int gameID = rsGames.getInt("GameID");
+                games.add(gameID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.closeConnection();
+        }
+
+        return games;
+    }
 }
