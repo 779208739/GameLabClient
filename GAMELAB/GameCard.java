@@ -14,18 +14,23 @@ import java.io.IOException;
 // Game card briefly show the basic game information,
 public class GameCard extends JPanel {
 
-    int GameID = -1;
-    String ImgPath = "static/pixel_test.png";
+    int GameID;
+    String Name;
+    String ImgPath;
     BufferedImage ImgSource;
     Image Img;
 
-    String Type = "Type";
-    String KeyWords = "this is a set of keywords";
+    String Type;
+    String KeyWords;
 
-    GameCard(String ImgPath, String Type, String keyWords) {
+    GameCard(int GameID, String Name, String ImgPath, String Type, String keyWords) {
+        this.GameID = GameID;
+        this.Name = Name;
         this.ImgPath = ImgPath;
         this.Type = Type;
         this.KeyWords = keyWords;
+
+        InitGame();
     }
 
     GameCard() {
@@ -54,7 +59,7 @@ public class GameCard extends JPanel {
         JLabel LabelImg = new JLabel(new ImageIcon(this.Img));
         LabelImg.setBounds(25, 10, 80, 80);
 
-        JLabel LabelTitle = new JLabel("name");
+        JLabel LabelTitle = new JLabel(Name);
         LabelTitle.setFont(new Font("Serif", Font.PLAIN, 35));
         LabelTitle.setBounds(150, 10, 200, 25);
 

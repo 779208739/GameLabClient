@@ -1,5 +1,11 @@
 package GAMELAB;
 
+import entity.Game;
+import system.cartDAO;
+import system.gameDAO;
+import system.libraryDAO;
+import system.storeDAO;
+
 import java.awt.*;
 import java.awt.Component;
 import java.util.Arrays;
@@ -15,6 +21,11 @@ public class Body {
     Navigation navigation = new Navigation();
     Pagination page = new Pagination(0);
     Search search = new Search();
+
+    libraryDAO librarydao = new libraryDAO();
+    storeDAO storedao = new storeDAO();
+    cartDAO cartdao = new cartDAO();
+    gameDAO gamedao = new gameDAO();
 
     public JPanel init() {
         setPanel();
@@ -59,20 +70,20 @@ public class Body {
     private void setGameSet() {
         int[] GetGameID = {};
 
-        // int[] GetGameID = ...
+        // get GameID from database
         switch (this.navigation.IndexNow) {
             case 0:
                 // Lab
 
-                GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+                GetGameID = librarydao.getGamesInLibrary();
                 break;
             case 1:
                 // Store
-                GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                GetGameID = storedao.getGameIDs();
                 break;
             case 2:
                 // Cart
-                GetGameID = new int[] { 11, 12 };
+                GetGameID = cartdao.getGamesInCart();
         }
 
         // If search
@@ -107,9 +118,18 @@ public class Body {
         // Add GameCard
         // For each gamecard
         for (int index = 0; index < showGameID.length; index++) {
-            // GameCard card = new GameCard(Game game);
-            GameCard card = new GameCard();
+            int gameID = showGameID[index];
+            entity.Game game = gamedao.getGameInfo(gameID);
+
+            String Name = game.getGameName();
+            String ImgPath = game.getImages().get(0); // display the first image
+            String Type = game.getType();
+            String KeyWords = String.join(", ", game.getKeywords());
+
+            GameCard card = new GameCard(gameID, Name, ImgPath, Type, KeyWords);
             card.setLocation(0, 110 * index);
+            GameSet.add(card);
+
 
             // Add btn for updating GameSubcard
             JButton BtnGameSubcard = new JButton(">");
@@ -128,7 +148,6 @@ public class Body {
                 ClickOnGameSubcard(BtnGameSubcard, card.GameID);
             });
 
-            GameSet.add(card);
             GameSet.add(BtnGameSubcard);
         }
 
