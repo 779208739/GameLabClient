@@ -19,15 +19,12 @@ public class Layout {
 
         JPanel PanelHeader = header.init();
         JPanel PanelBody = body.init();
-        Search search = new Search();
 
         PanelHeader.setBounds(0, 0, 1000, 50);
-        PanelBody.setLocation(20, 100);
-        search.setLocation(200, 50);
+        PanelBody.setLocation(20, 50);
 
         frame.add(PanelHeader);
         frame.add(PanelBody);
-        frame.add(search);
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

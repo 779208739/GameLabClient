@@ -11,10 +11,9 @@ public class Body {
     JPanel GameSet = new JPanel();
 
     GameSubcard gameSubcard = new GameSubcard("Name", 10.10, "Intro", "Keywords");
-
     Navigation navigation = new Navigation();
-
     Pagination page = new Pagination(0);
+    Search search = new Search();
 
     public JPanel init() {
         setPanel();
@@ -29,34 +28,43 @@ public class Body {
 
         // Set pagination
         setPagination();
-        page.setLocation(80, 440);
+        page.setLocation(80, 490);
+
         // Set GameSubCard
-        gameSubcard.setLocation(590, 0);
+        gameSubcard.setLocation(590, 50);
+
         // Set GameSet
-        setGameSet(0);
-        navigation.setBounds(0, 0, 80, 180);
+        setGameSet();
+        navigation.setBounds(0, 50, 80, 180);
 
         GameSet.setBackground(Color.blue);
-        GameSet.setBounds(80, 0, 500, 440);
+        GameSet.setBounds(80, 50, 500, 440);
         GameSet.setLayout(null);
+
         // Set Navigation
         setNavigation();
+
+        // Set Search
+        setSearch();
+        search.setLocation(0, 0);
 
         MainPanel.add(gameSubcard);
         MainPanel.add(GameSet);
         MainPanel.add(page);
         MainPanel.add(navigation);
+        MainPanel.add(search);
     }
 
     // Update the games(size is less than or equal to 4) in the main screen
     // navIndex: 0 = Lab, 1 = Store, 2 = Cart
-    private void setGameSet(int navIndex) {
+    private void setGameSet() {
         int[] GetGameID = {};
 
         // int[] GetGameID = ...
-        switch (navIndex) {
+        switch (this.navigation.IndexNow) {
             case 0:
                 // Lab
+
                 GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7 };
                 break;
             case 1:
@@ -67,6 +75,22 @@ public class Body {
                 // Cart
                 GetGameID = new int[] { 11, 12 };
         }
+
+        // If search
+        if (this.search.SearchNow)
+            switch (this.navigation.IndexNow) {
+                case 0:
+                    // Lab
+                    GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+                    break;
+                case 1:
+                    // Store
+                    GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                    break;
+                case 2:
+                    // Cart
+                    GetGameID = new int[] { 11, 12 };
+            }
 
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
         if ((GetGameID.length - 1) / 4 == 0)
@@ -123,6 +147,14 @@ public class Body {
         ClickOnNavigation(0);
     }
 
+    private void setSearch() {
+        this.search.init();
+
+        this.search.SearchBtn.addActionListener((e) -> {
+            ClickOnSearch();
+        });
+    }
+
     private void ClickOnNext() {
         this.page.PageNow++;
         if (this.page.PageNow == this.page.PageSize)
@@ -130,7 +162,7 @@ public class Body {
 
         this.page.PreviousPage.setEnabled(true);
         this.page.updateLabel();
-        setGameSet(this.navigation.IndexNow);
+        setGameSet();
     }
 
     private void ClickOnPrevious() {
@@ -140,13 +172,13 @@ public class Body {
 
         this.page.NextPage.setEnabled(true);
         this.page.updateLabel();
-        setGameSet(this.navigation.IndexNow);
+        setGameSet();
     }
 
     private void ClickOnNavigation(int index) {
         this.page.PageNow = 1;
         this.navigation.IndexNow = index;
-        setGameSet(index);
+        setGameSet();
 
         this.navigation.BtnLibrary.setBackground(Color.white);
         this.navigation.BtnStore.setBackground(Color.WHITE);
@@ -163,5 +195,12 @@ public class Body {
                 this.navigation.BtnCart.setBackground(Color.PINK);
                 break;
         }
+    }
+
+    private void ClickOnSearch() {
+
+        this.search.SearchNow = true;
+        setGameSet();
+        this.search.SearchNow = false;
     }
 }
