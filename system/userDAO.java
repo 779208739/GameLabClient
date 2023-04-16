@@ -1,17 +1,17 @@
 package system;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class userDAO {
+
+    // pass test
     public boolean Signup(String name, String password, String email, String phone) {
 
         String userQuery = "INSERT INTO User (UserName, Password, Email, Phone) VALUES (?, ?, ?, ?);";
 
         try(Connection conn = DB.getConnection();
-            PreparedStatement stUser = conn.prepareStatement(userQuery)){
+            PreparedStatement stUser = conn.prepareStatement(userQuery, Statement.RETURN_GENERATED_KEYS);
+        ){
 
             //Insert a new user into the User table
             stUser.setString(1, name);
@@ -43,7 +43,6 @@ public class userDAO {
         }finally {
             DB.closeConnection();
         }
-
         return false;
     }
 
@@ -57,13 +56,15 @@ public class userDAO {
             // Set query parameters
             st.setString(1, username);
             st.setString(2, password);
-
+            ResultSet rs = st.executeQuery();
             // Execute the query
-            try (ResultSet rs = st.executeQuery()) {
+            if(rs.next()) {
                 // If there is a result, the username and password match a user in the database
                 int userID = rs.getInt("UserID");
                 Session.getInstance().setUserID(userID);
                 return true;
+            }else{
+                return false;
             }
 
         } catch (SQLException e) {
@@ -71,7 +72,6 @@ public class userDAO {
         } finally {
             DB.closeConnection();
         }
-
         return false;
     }
 
