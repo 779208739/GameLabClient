@@ -15,7 +15,7 @@ import java.util.List;
 public class storeDAO extends gameDAO{
 
     //limit is the number of games to fetch and offset is the starting point for fetching games
-    public List<Integer> getGamesByType(String type, int limit, int offset) {
+    public int[] getGamesByType(String type, int limit, int offset) {
 
         //Click button "ALL" will show all games
         String query;
@@ -49,11 +49,11 @@ public class storeDAO extends gameDAO{
             DB.closeConnection();
         }
 
-        return gamesByType;
+        return gamesByType.stream().mapToInt(Integer::intValue).toArray();
     }
 
     //Search games
-    public List<Integer> searchGames(String input){
+    public int[] searchGames(String input){
         String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
                 "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
                 "WHERE g.Description LIKE ? OR k.Keyword LIKE ?;";
@@ -79,11 +79,11 @@ public class storeDAO extends gameDAO{
             DB.closeConnection();
         }
 
-        return gamesByKeyword;
+        return gamesByKeyword.stream().mapToInt(Integer::intValue).toArray();
     }
     
     //search games in specific type
-    public List<Integer> searchGamesByType(String input, String type){
+    public int[] searchGamesByType(String input, String type){
         String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
                 "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
                 "WHERE g.Type = ? AND" +
@@ -112,10 +112,10 @@ public class storeDAO extends gameDAO{
             DB.closeConnection();
         }
 
-        return games;
+        return games.stream().mapToInt(Integer::intValue).toArray();
     }
     
-    private int[] getGameIDs() {
+    public int[] getGameIDs() {
         List<Integer> gameIDs = new ArrayList<>();
         String query = "SELECT GameID FROM Game;";
 
