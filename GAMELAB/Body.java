@@ -69,6 +69,11 @@ public class Body {
         }
 
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
+        if ((GetGameID.length - 1) / 4 == 0)
+            this.page.NextPage.setEnabled(false);
+        else if ((GetGameID.length - 1) / 4 != 0 && this.page.PageNow != this.page.PageSize)
+            this.page.NextPage.setEnabled(true);
+
         this.page.updateLabel();
 
         int[] showGameID = Arrays.copyOfRange(GetGameID, (this.page.PageNow - 1) * 4,
@@ -139,6 +144,7 @@ public class Body {
     }
 
     private void ClickOnNavigation(int index) {
+        this.page.PageNow = 1;
         this.navigation.IndexNow = index;
         setGameSet(index);
 

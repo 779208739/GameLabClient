@@ -14,7 +14,7 @@ import java.io.IOException;
 // Game card briefly show the basic game information,
 public class GameCard extends JPanel {
 
-    String ImgPath = "static/TestImg.jpg";
+    String ImgPath = "static/pixel_test.png";
     BufferedImage ImgSource;
     Image Img;
 
