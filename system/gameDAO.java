@@ -15,7 +15,7 @@ import java.util.List;
 
 public class gameDAO {
     public Game getGameInfo(int gameID){
-        String gameQuery = "SELECT GameName, Description, Price, Type FROM Games WHERE GameID = ?;";
+        String gameQuery = "SELECT GameName, Description, Price, Type FROM Game WHERE GameID = ?;";
         String imageQuery = "SELECT Image FROM Image WHERE IdGame_image = ?;";
         String keywordQuery = "SELECT Keyword FROM Keyword WHERE IdGame_keyword = ?;";
 
