@@ -13,7 +13,7 @@ import java.util.List;
 
 public class cartDAO extends gameDAO{
 
-    public List<Integer> getGamesInCart(){
+    public int[] getGamesInCart(){
         String cartQuery = "SELECT cartGameID FROM Cart WHERE cartID = ?;";
         List<Integer> gamesInCart = new ArrayList<>();
 
@@ -33,7 +33,6 @@ public class cartDAO extends gameDAO{
             DB.closeConnection();
         }
 
-        return gamesInCart;
+        return gamesInCart.stream().mapToInt(Integer::intValue).toArray();
     }
-
 }
