@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.Font;
 
 public class GameSubcard extends JPanel {
+    int GameID = -1;
     String Name;
     double Price;
     String Intro;

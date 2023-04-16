@@ -1,6 +1,7 @@
 package GAMELAB;
 
 import java.awt.*;
+import java.awt.Component;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -24,21 +25,21 @@ public class Body {
     private void setPanel() {
         MainPanel.setBackground(Color.blue);
         MainPanel.setLayout(null);
-        MainPanel.setSize(900, 500);
+        MainPanel.setSize(960, 530);
 
         // Set pagination
         setPagination();
         page.setLocation(80, 490);
 
         // Set GameSubCard
-        gameSubcard.setLocation(590, 50);
+        gameSubcard.setLocation(650, 50);
 
         // Set GameSet
         setGameSet();
         navigation.setBounds(0, 50, 80, 180);
 
         GameSet.setBackground(Color.blue);
-        GameSet.setBounds(80, 50, 500, 440);
+        GameSet.setBounds(80, 50, 640, 440);
         GameSet.setLayout(null);
 
         // Set Navigation
@@ -105,11 +106,32 @@ public class Body {
 
         GameSet.removeAll();
 
+        // Add GameCard
+        // For each gamecard
         for (int index = 0; index < showGameID.length; index++) {
             // GameCard card = new GameCard(Game game);
             GameCard card = new GameCard();
             card.setLocation(0, 110 * index);
+
+            // Add btn for updating GameSubcard
+            JButton BtnGameSubcard = new JButton(">");
+            BtnGameSubcard.setBorder(null);
+            BtnGameSubcard.setBounds(510, 110 * index, 50, 100);
+            // Set background color for btn
+            BtnGameSubcard.setOpaque(true);
+            BtnGameSubcard.setBorderPainted(false);
+
+            if (index != 0)
+                BtnGameSubcard.setBackground(Color.ORANGE);
+            else
+                BtnGameSubcard.setBackground(Color.GRAY);
+
+            BtnGameSubcard.addActionListener((e) -> {
+                ClickOnGameSubcard(BtnGameSubcard, card.GameID);
+            });
+
             GameSet.add(card);
+            GameSet.add(BtnGameSubcard);
         }
 
         GameSet.revalidate();
@@ -117,7 +139,7 @@ public class Body {
 
     }
 
-    private void setGameSubCard() {
+    private void setGameSubCard(int GameID) {
         this.gameSubcard.updateGameSubCard("UpdateName", 10.30, "updateIntro", "updateIntro", 0.8);
     }
 
@@ -202,5 +224,18 @@ public class Body {
         this.search.SearchNow = true;
         setGameSet();
         this.search.SearchNow = false;
+    }
+
+    private void ClickOnGameSubcard(JButton BtnGameSubcard, int GameID) {
+        // Clickings will change the color of the btn
+        Component[] componentList = GameSet.getComponents();
+        for (Component btn : componentList) {
+            if (btn instanceof JButton) {
+                btn.setBackground(Color.ORANGE);
+            }
+        }
+
+        BtnGameSubcard.setBackground(Color.GRAY);
+        setGameSubCard(GameID);
     }
 }

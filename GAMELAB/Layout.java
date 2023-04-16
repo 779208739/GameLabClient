@@ -11,7 +11,7 @@ public class Layout {
     Body body = new Body();
 
     public void init() {
-        frame.setSize(1000, 600);
+        frame.setSize(1000, 620);
 
         frame.setLocationRelativeTo(null);
 

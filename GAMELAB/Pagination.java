@@ -13,7 +13,7 @@ public class Pagination extends JPanel {
     Pagination(int PageSize) {
         this.setLayout(null);
         this.PageSize = PageSize;
-        this.setSize(500, 80);
+        this.setSize(500, 30);
 
         this.NextPage = new JButton("Next");
         this.PreviousPage = new JButton("Previous");
