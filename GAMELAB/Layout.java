@@ -21,7 +21,7 @@ public class Layout {
         JPanel PanelBody = body.init();
 
         PanelHeader.setBounds(0, 0, 1000, 50);
-        PanelBody.setLocation(20, 50);
+        PanelBody.setLocation(10, 50);
 
         frame.add(PanelHeader);
         frame.add(PanelBody);

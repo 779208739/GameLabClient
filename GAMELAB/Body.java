@@ -24,20 +24,20 @@ public class Body {
 
     private void setPanel() {
         MainPanel.setLayout(null);
-        MainPanel.setSize(960, 530);
+        MainPanel.setSize(970, 530);
 
         // Set pagination
         setPagination();
-        page.setLocation(80, 490);
+        page.setLocation(90, 490);
 
         // Set GameSubCard
-        gameSubcard.setLocation(650, 50);
+        gameSubcard.setLocation(660, 50);
 
         // Set GameSet
         setGameSet();
         navigation.setBounds(0, 50, 80, 180);
 
-        GameSet.setBounds(80, 50, 570, 440);
+        GameSet.setBounds(90, 50, 570, 440);
         GameSet.setLayout(null);
 
         // Set Navigation
@@ -45,7 +45,7 @@ public class Body {
 
         // Set Search
         setSearch();
-        search.setLocation(0, 0);
+        search.setLocation(10, 0);
 
         MainPanel.add(gameSubcard);
         MainPanel.add(GameSet);
