@@ -23,7 +23,6 @@ public class Body {
     }
 
     private void setPanel() {
-        MainPanel.setBackground(Color.blue);
         MainPanel.setLayout(null);
         MainPanel.setSize(960, 530);
 
@@ -38,8 +37,7 @@ public class Body {
         setGameSet();
         navigation.setBounds(0, 50, 80, 180);
 
-        GameSet.setBackground(Color.blue);
-        GameSet.setBounds(80, 50, 640, 440);
+        GameSet.setBounds(80, 50, 570, 440);
         GameSet.setLayout(null);
 
         // Set Navigation
@@ -124,7 +122,7 @@ public class Body {
             if (index != 0)
                 BtnGameSubcard.setBackground(Color.ORANGE);
             else
-                BtnGameSubcard.setBackground(Color.GRAY);
+                BtnGameSubcard.setBackground(Color.lightGray);
 
             BtnGameSubcard.addActionListener((e) -> {
                 ClickOnGameSubcard(BtnGameSubcard, card.GameID);
@@ -235,7 +233,7 @@ public class Body {
             }
         }
 
-        BtnGameSubcard.setBackground(Color.GRAY);
+        BtnGameSubcard.setBackground(Color.lightGray);
         setGameSubCard(GameID);
     }
 }

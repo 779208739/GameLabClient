@@ -35,7 +35,7 @@ public class GameSubcard extends JPanel {
 
     private void init() {
         this.setLayout(null);
-        this.setBackground(Color.GRAY);
+        this.setBackground(Color.lightGray);
         this.setSize(300, 430);
 
         JLabel LabelName = new JLabel(this.Name);
