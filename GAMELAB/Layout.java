@@ -20,14 +20,11 @@ public class Layout {
         JPanel PanelHeader = header.init();
         JPanel PanelBody = body.init();
         Search search = new Search();
-        Navigation navigation = new Navigation();
 
         PanelHeader.setBounds(0, 0, 1000, 50);
-        PanelBody.setLocation(100, 100);
+        PanelBody.setLocation(20, 100);
         search.setLocation(200, 50);
-        navigation.setLocation(20, 100);
 
-        frame.add(navigation);
         frame.add(PanelHeader);
         frame.add(PanelBody);
         frame.add(search);

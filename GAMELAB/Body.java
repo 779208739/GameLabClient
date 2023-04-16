@@ -10,6 +10,10 @@ public class Body {
     JPanel Game = new JPanel();
     JPanel GameSet = new JPanel();
 
+    GameSubcard gameSubcard = new GameSubcard("Name", 10.10, "Intro", "Keywords");
+
+    Navigation navigation = new Navigation();
+
     Pagination page = new Pagination(0);
 
     public JPanel init() {
@@ -21,30 +25,49 @@ public class Body {
     private void setPanel() {
         MainPanel.setBackground(Color.blue);
         MainPanel.setLayout(null);
-        MainPanel.setSize(820, 500);
+        MainPanel.setSize(900, 500);
 
         // Set pagination
         setPagination();
-        this.page.setLocation(0, 440);
-
-        GameSubcard subcard = new GameSubcard("GameName", 10.20,
-                "aa cc bv sdd sasdadssad dfafa ddd", "aa bb cc");
-        subcard.setLocation(510, 0);
+        page.setLocation(80, 440);
+        // Set GameSubCard
+        gameSubcard.setLocation(590, 0);
         // Set GameSet
-        setGameSet();
-        GameSet.setBackground(Color.blue);
-        GameSet.setBounds(0, 0, 600, 440);
-        GameSet.setLayout(null);
+        setGameSet(0);
+        navigation.setBounds(0, 0, 80, 180);
 
-        MainPanel.add(subcard);
+        GameSet.setBackground(Color.blue);
+        GameSet.setBounds(80, 0, 500, 440);
+        GameSet.setLayout(null);
+        // Set Navigation
+        setNavigation();
+
+        MainPanel.add(gameSubcard);
         MainPanel.add(GameSet);
-        MainPanel.add(this.page);
+        MainPanel.add(page);
+        MainPanel.add(navigation);
     }
 
     // Update the games(size is less than or equal to 4) in the main screen
-    private void setGameSet() {
+    // navIndex: 0 = Lab, 1 = Store, 2 = Cart
+    private void setGameSet(int navIndex) {
+        int[] GetGameID = {};
+
         // int[] GetGameID = ...
-        int[] GetGameID = { 1, 2, 3, 4, 5, 6, 7 };
+        switch (navIndex) {
+            case 0:
+                // Lab
+                GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+                break;
+            case 1:
+                // Store
+                GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                break;
+            case 2:
+                // Cart
+                GetGameID = new int[] { 11, 12 };
+        }
+
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
         this.page.updateLabel();
 
@@ -65,6 +88,10 @@ public class Body {
 
     }
 
+    private void setGameSubCard() {
+        this.gameSubcard.updateGameSubCard("UpdateName", 10.30, "updateIntro", "updateIntro", 0.8);
+    }
+
     private void setPagination() {
         this.page.NextPage.addActionListener((e) -> {
             ClickOnNext();
@@ -76,6 +103,21 @@ public class Body {
 
     }
 
+    private void setNavigation() {
+        this.navigation.BtnLibrary.addActionListener((e) -> {
+            ClickOnNavigation(0);
+        });
+        this.navigation.BtnStore.addActionListener((e) -> {
+            ClickOnNavigation(1);
+        });
+        this.navigation.BtnCart.addActionListener((e) -> {
+            ClickOnNavigation(2);
+        });
+        // Initial
+
+        ClickOnNavigation(0);
+    }
+
     private void ClickOnNext() {
         this.page.PageNow++;
         if (this.page.PageNow == this.page.PageSize)
@@ -83,7 +125,7 @@ public class Body {
 
         this.page.PreviousPage.setEnabled(true);
         this.page.updateLabel();
-        setGameSet();
+        setGameSet(this.navigation.IndexNow);
     }
 
     private void ClickOnPrevious() {
@@ -93,6 +135,27 @@ public class Body {
 
         this.page.NextPage.setEnabled(true);
         this.page.updateLabel();
-        setGameSet();
+        setGameSet(this.navigation.IndexNow);
+    }
+
+    private void ClickOnNavigation(int index) {
+        this.navigation.IndexNow = index;
+        setGameSet(index);
+
+        this.navigation.BtnLibrary.setBackground(Color.white);
+        this.navigation.BtnStore.setBackground(Color.WHITE);
+        this.navigation.BtnCart.setBackground(Color.WHITE);
+
+        switch (index) {
+            case 0:
+                this.navigation.BtnLibrary.setBackground(Color.PINK);
+                break;
+            case 1:
+                this.navigation.BtnStore.setBackground(Color.PINK);
+                break;
+            case 2:
+                this.navigation.BtnCart.setBackground(Color.PINK);
+                break;
+        }
     }
 }

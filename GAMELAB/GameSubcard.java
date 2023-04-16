@@ -77,4 +77,12 @@ public class GameSubcard extends JPanel {
         this.add(TextIntro);
         this.add(BtnBuy);
     }
+
+    public void updateGameSubCard(String Name, double Price, String Intro, String Keyword, double Discount) {
+        this.Name = Name;
+        this.Price = Price;
+        this.Intro = Intro;
+        this.Keyword = Keyword;
+        this.Discount = Discount;
+    }
 }

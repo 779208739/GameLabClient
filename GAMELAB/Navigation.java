@@ -5,6 +5,9 @@ import java.awt.Color;
 import javax.swing.*;
 
 public class Navigation extends JPanel {
+    // 0 = Lab, 1 = Store, 2 = Cart
+    int IndexNow = 0;
+
     JButton BtnLibrary;
     JButton BtnStore;
     JButton BtnCart;
@@ -26,6 +29,7 @@ public class Navigation extends JPanel {
         this.BtnCart.setBounds(0, 100, 80, 50);
 
         // To show the background color on MacOS
+        // https://stackoverflow.com/questions/1065691/how-to-set-the-background-color-of-a-jbutton-on-the-mac-os
         BtnLibrary.setOpaque(true);
         BtnLibrary.setBorderPainted(false);
         BtnStore.setOpaque(true);
@@ -33,39 +37,10 @@ public class Navigation extends JPanel {
         BtnCart.setOpaque(true);
         BtnCart.setBorderPainted(false);
 
-        this.BtnLibrary.addActionListener((e) -> {
-            ClickOn(0);
-        });
-        this.BtnStore.addActionListener((e) -> {
-            ClickOn(1);
-        });
-        this.BtnCart.addActionListener((e) -> {
-            ClickOn(2);
-        });
-
         this.add(BtnCart);
         this.add(BtnLibrary);
         this.add(BtnStore);
 
-        // Initial with library
-        ClickOn(0);
     }
 
-    private void ClickOn(int index) {
-        this.BtnLibrary.setBackground(Color.white);
-        this.BtnStore.setBackground(Color.WHITE);
-        this.BtnCart.setBackground(Color.WHITE);
-
-        switch (index) {
-            case 0:
-                this.BtnLibrary.setBackground(Color.PINK);
-                break;
-            case 1:
-                this.BtnStore.setBackground(Color.PINK);
-                break;
-            case 2:
-                this.BtnCart.setBackground(Color.PINK);
-                break;
-        }
-    }
 }
