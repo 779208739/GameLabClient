@@ -13,7 +13,7 @@ import java.util.List;
 
 public class libraryDAO extends gameDAO{
 
-    public List<Integer> getGamesInLibrary(){
+    public int[] getGamesInLibrary(){
         String libraryQuery = "SELECT libGameID FROM Library WHERE LibraryID = ?;";
         List<Integer> gamesInLibrary = new ArrayList<>();
 
@@ -33,6 +33,6 @@ public class libraryDAO extends gameDAO{
             DB.closeConnection();
         }
 
-        return gamesInLibrary;
+        return gamesInLibrary.stream().mapToInt(Integer::intValue).toArray();
     }
 }
