@@ -114,4 +114,24 @@ public class storeDAO extends gameDAO{
 
         return games;
     }
+    
+    private int[] getGameIDs() {
+        List<Integer> gameIDs = new ArrayList<>();
+        String query = "SELECT GameID FROM Game;";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)) {
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                gameIDs.add(rs.getInt("GameID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.closeConnection();
+        }
+
+        return gameIDs.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
