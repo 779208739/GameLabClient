@@ -61,13 +61,13 @@ public class GameCard extends JPanel {
 
         JLabel LabelTitle = new JLabel(Name);
         LabelTitle.setFont(new Font("Serif", Font.PLAIN, 35));
-        LabelTitle.setBounds(150, 10, 200, 25);
+        LabelTitle.setBounds(150, 10, 350, 25);
 
         JLabel LabelType = new JLabel(this.Type);
-        LabelType.setBounds(150, 45, 400, 25);
+        LabelType.setBounds(150, 45, 350, 25);
 
         JLabel LabelKeyWord = new JLabel(this.KeyWords);
-        LabelKeyWord.setBounds(150, 70, 400, 25);
+        LabelKeyWord.setBounds(150, 70, 350, 25);
 
         this.add(LabelImg);
         this.add(LabelTitle);

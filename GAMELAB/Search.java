@@ -12,14 +12,9 @@ public class Search extends JPanel {
     JComboBox<String> SearchType = new JComboBox<String>();
     JButton SearchBtn = new JButton("Search");
 
-
     int[] gameIDs;
 
-    public Search(){
-        init();
-    }
-
-    public int[] getGameIDs(){
+    public int[] getGameIDs() {
         return gameIDs;
     }
 
@@ -41,7 +36,6 @@ public class Search extends JPanel {
         SearchType.addItem("Survival");
 
         SearchBtn.setBounds(470, 10, 100, 30);
-
 
         this.add(SearchBar);
         this.add(SearchType);
