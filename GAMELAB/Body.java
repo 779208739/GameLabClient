@@ -74,7 +74,6 @@ public class Body {
         switch (this.navigation.IndexNow) {
             case 0:
                 // Lab
-
                 GetGameID = librarydao.getGamesInLibrary();
                 break;
             case 1:
@@ -130,9 +129,6 @@ public class Body {
             card.setLocation(0, 110 * index);
             GameSet.add(card);
 
-            if(index == 0){
-                setGameSubCard(game);
-            }
 
             // Add btn for updating GameSubcard
             JButton BtnGameSubcard = new JButton(">");
@@ -147,11 +143,41 @@ public class Body {
             else
                 BtnGameSubcard.setBackground(Color.lightGray);
 
-            BtnGameSubcard.addActionListener((e) -> {
-                ClickOnGameSubcard(BtnGameSubcard, game);
-            });
+            // different buttons will be displayed
+            switch(this.navigation.IndexNow){
+                case 0:
+                    if(index == 0){
+                        setGameSubCard(game, 0);
+                    }
 
-            GameSet.add(BtnGameSubcard);
+                    BtnGameSubcard.addActionListener((e) -> {
+                        ClickOnGameSubcard(BtnGameSubcard, game, 0);
+                    });
+
+                    GameSet.add(BtnGameSubcard);
+                    break;
+                case 1:
+                    if(index == 0){
+                        setGameSubCard(game, 1);
+                    }
+
+                    BtnGameSubcard.addActionListener((e) -> {
+                        ClickOnGameSubcard(BtnGameSubcard, game, 1);
+                    });
+
+                    GameSet.add(BtnGameSubcard);
+                    break;
+                case 2:
+                    if(index == 0){
+                        setGameSubCard(game, 2);
+                    }
+
+                    BtnGameSubcard.addActionListener((e) -> {
+                        ClickOnGameSubcard(BtnGameSubcard, game, 2);
+                    });
+
+                    GameSet.add(BtnGameSubcard);
+            }
         }
 
         GameSet.revalidate();
@@ -159,13 +185,13 @@ public class Body {
 
     }
 
-    private void setGameSubCard(Game game) {
+    private void setGameSubCard(Game game, int displayCase) {
         String GameName = game.getGameName();
         double Price = game.getPrice();
         String intro = game.getDescription();
         String KeyWords = String.join(", ", game.getKeywords());
 
-        this.gameSubcard.updateGameSubCard(GameName, Price, intro, KeyWords, 1.0);
+        this.gameSubcard.updateGameSubCard(GameName, Price, intro, KeyWords, 1.0, displayCase);
     }
 
     private void setPagination() {
@@ -251,7 +277,7 @@ public class Body {
         this.search.SearchNow = false;
     }
 
-    private void ClickOnGameSubcard(JButton BtnGameSubcard, Game game) {
+    private void ClickOnGameSubcard(JButton BtnGameSubcard, Game game, int displayCase) {
         // Clickings will change the color of the btn
         Component[] componentList = GameSet.getComponents();
         for (Component btn : componentList) {
@@ -261,6 +287,6 @@ public class Body {
         }
 
         BtnGameSubcard.setBackground(Color.lightGray);
-        setGameSubCard(game);
+        setGameSubCard(game, displayCase);
     }
 }

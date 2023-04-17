@@ -27,7 +27,6 @@ public class GameSubcard extends JPanel {
         this.Keyword = Keyword;
         this.Discount = Discount;
 
-        init();
     }
 
     GameSubcard(String Name, double Price, String Intro, String Keyword) {
@@ -38,10 +37,9 @@ public class GameSubcard extends JPanel {
         this.Keyword = Keyword;
         this.Discount = 1.00;
 
-        init();
     }
 
-    private void init() {
+    private void init(int displayCase) {
         this.setLayout(null);
         this.setBackground(Color.lightGray);
         this.setSize(300, 430);
@@ -70,9 +68,7 @@ public class GameSubcard extends JPanel {
         TextIntro.setBorder(null);
         TextIntro.setEditable(false);
 
-        JButton BtnBuy = new JButton("Buy");
-        BtnBuy.setFont(new Font("Serif", Font.PLAIN, 20));
-        BtnBuy.setBounds(210, 380, 80, 40);
+        createButtons(displayCase);
 
         if (Discount != 1.00) {
             // Show original price if exist a discount
@@ -84,10 +80,44 @@ public class GameSubcard extends JPanel {
         this.add(LabelPrice);
         this.add(LabelKeyword);
         this.add(TextIntro);
-        this.add(BtnBuy);
     }
 
-    public void updateGameSubCard(String Name, double Price, String Intro, String Keyword, double Discount) {
+    private void createButtons(int displayCase) {
+        switch (displayCase) {
+            case 0: // Lab
+                JButton BtnRemove = new JButton("Remove");
+                BtnRemove.setFont(new Font("Serif", Font.PLAIN, 20));
+                BtnRemove.setBounds(210, 380, 80, 40);
+                this.add(BtnRemove);
+                break;
+            case 1: // Store
+                JButton BtnAdd = new JButton("Add");
+                BtnAdd.setFont(new Font("Serif", Font.PLAIN, 20));
+                BtnAdd.setBounds(100, 380, 80, 40);
+
+                JButton BtnBuy = new JButton("Buy");
+                BtnBuy.setFont(new Font("Serif", Font.PLAIN, 20));
+                BtnBuy.setBounds(210, 380, 80, 40);
+
+                this.add(BtnBuy);
+                this.add(BtnAdd);
+                break;
+            case 2: // Cart
+                JButton BtnBuyCart = new JButton("Delete");
+                BtnBuyCart.setFont(new Font("Serif", Font.PLAIN, 20));
+                BtnBuyCart.setBounds(100, 380, 80, 40);
+
+                JButton BtnDelete = new JButton("Buy");
+                BtnDelete.setFont(new Font("Serif", Font.PLAIN, 20));
+                BtnDelete.setBounds(210, 380, 80, 40);
+
+                this.add(BtnBuyCart);
+                this.add(BtnDelete);
+
+        }
+    }
+
+    public void updateGameSubCard(String Name, double Price, String Intro, String Keyword, double Discount, int displayCase) {
         // getGameInfo
         this.Name = Name;
         this.Price = Price;
@@ -96,7 +126,7 @@ public class GameSubcard extends JPanel {
         this.Discount = Discount;
 
         this.removeAll();
-        init();
+        init(displayCase);
 
         // Repaint the UI to reflect the changes
         this.revalidate();

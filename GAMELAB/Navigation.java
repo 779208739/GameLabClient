@@ -21,7 +21,7 @@ public class Navigation extends JPanel {
         this.setLayout(null);
         this.setSize(80, 150);
 
-        this.BtnLibrary = new JButton("Lab");
+        this.BtnLibrary = new JButton("Lib");
         this.BtnStore = new JButton("Store");
         this.BtnCart = new JButton("Cart");
 
