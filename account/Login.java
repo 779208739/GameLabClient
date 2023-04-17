@@ -42,7 +42,7 @@ public class Login {
         TextPasswd.setBounds(180, 110, 150, 40);
 
         // btn for login
-        JButton BtnLogin = new JButton("login");
+        JButton BtnLogin = new JButton("Login");
         BtnLogin.setBounds(210, 180, 80, 40);
         BtnLogin.addActionListener((e) -> {
 
@@ -52,8 +52,9 @@ public class Login {
             String password = new String(passwordCharArray);
 
             boolean Login = user.Login(username, password);
+            boolean isGamer = user.isGamer();
             // verify the username & password while click login
-            if (Login) {
+            if (Login == true && isGamer == true) {
                 // Login successfully
                 new Layout().init();
                 frame.dispose();
@@ -64,11 +65,30 @@ public class Login {
             }
         });
 
+        // btn for signup
+        JButton BtnSignup = new JButton("Signup");
+        BtnSignup.setBounds(80, 180, 80, 40);
+        BtnSignup.addActionListener(e -> {
+            new Signup().init();
+            frame.dispose();
+        });
+
+        // btn for reset
+        JButton BtnReset = new JButton("Reset");
+        BtnReset.setBounds(340, 180, 80, 40);
+        BtnReset.addActionListener(e -> {
+            new Reset().init();
+            frame.dispose();
+        });
+
+
         panel.add(LabelLogin);
         panel.add(TextLogin);
         panel.add(TextPasswd);
         panel.add(LabelPasswd);
         panel.add(BtnLogin);
+        panel.add(BtnSignup);
+        panel.add(BtnReset);
     }
 
 }

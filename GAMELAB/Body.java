@@ -22,6 +22,8 @@ public class Body {
     Pagination page = new Pagination(0);
     Search search = new Search();
 
+    boolean isSearchActive = false;
+
     libraryDAO librarydao = new libraryDAO();
     storeDAO storedao = new storeDAO();
     cartDAO cartdao = new cartDAO();
@@ -69,36 +71,36 @@ public class Body {
         int[] GetGameID = {};
 
         // get GameID from database
-        switch (this.navigation.IndexNow) {
-            case 0:
-                // Lab
-                GetGameID = librarydao.getGamesInLibrary();
-                MainPanel.remove(search);
-
-                break;
-            case 1:
-                // Store
-                GetGameID = storedao.getGameIDs();
-
-                search.setLocation(10, 0);
-
-                MainPanel.add(search);
-
-                break;
-            case 2:
-                // Cart
-                GetGameID = cartdao.getGamesInCart();
-                MainPanel.remove(search);
-
+        if (isSearchActive) {
+            GetGameID = this.search.gameIDs;
+        } else {
+            // get GameID from database
+            switch (this.navigation.IndexNow) {
+                case 0:
+                    // Lab
+                    GetGameID = librarydao.getGamesInLibrary();
+                    MainPanel.remove(search);
+                    break;
+                case 1:
+                    // Store
+                    GetGameID = storedao.getGameIDs();
+                    search.setLocation(10, 0);
+                    MainPanel.add(search);
+                    break;
+                case 2:
+                    // Cart
+                    GetGameID = cartdao.getGamesInCart();
+                    MainPanel.remove(search);
+            }
         }
 
         MainPanel.revalidate();
         MainPanel.repaint();
 
         // If search
-        if (this.search.SearchNow){
-            GetGameID = this.search.gameIDs;
-        }
+        //if (this.search.SearchNow){
+            //GetGameID = this.search.gameIDs;
+        //}
 
 
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
@@ -242,9 +244,13 @@ public class Body {
     }
 
     private void ClickOnNext() {
-        this.page.PageNow++;
-        if (this.page.PageNow == this.page.PageSize)
-            this.page.NextPage.setEnabled(false);
+        if (isSearchActive) {
+            this.page.PageNow++;
+        } else {
+            this.page.PageNow++;
+            if (this.page.PageNow == this.page.PageSize)
+                this.page.NextPage.setEnabled(false);
+        }
 
         this.page.PreviousPage.setEnabled(true);
         this.page.updateLabel();
@@ -252,9 +258,13 @@ public class Body {
     }
 
     private void ClickOnPrevious() {
-        this.page.PageNow--;
-        if (this.page.PageNow == 1)
-            this.page.PreviousPage.setEnabled(false);
+        if (isSearchActive) {
+            this.page.PageNow--;
+        } else {
+            this.page.PageNow--;
+            if (this.page.PageNow == 1)
+                this.page.PreviousPage.setEnabled(false);
+        }
 
         this.page.NextPage.setEnabled(true);
         this.page.updateLabel();
@@ -262,6 +272,8 @@ public class Body {
     }
 
     private void ClickOnNavigation(int index) {
+        isSearchActive = false;
+
         this.page.PageNow = 1;
         this.navigation.IndexNow = index;
         setGameSet();
@@ -285,9 +297,9 @@ public class Body {
 
     private void ClickOnSearch() {
 
-        this.search.SearchNow = true;
+        isSearchActive = true;
         setGameSet();
-        this.search.SearchNow = false;
+
     }
 
     private void ClickOnGameSubcard(JButton BtnGameSubcard, Game game, int displayCase) {

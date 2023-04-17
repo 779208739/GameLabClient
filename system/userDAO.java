@@ -46,6 +46,27 @@ public class userDAO {
         return false;
     }
 
+    public boolean usernameExists(String name) {
+        String query = "SELECT COUNT(*) FROM User WHERE UserName = ?;";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)) {
+            st.setString(1, name);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.closeConnection();
+        }
+        return false;
+    }
+
     public boolean Login(String username, String password){
 
         String query = "SELECT UserID FROM User WHERE UserName=? AND Password=?;";
