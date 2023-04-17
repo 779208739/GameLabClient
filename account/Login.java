@@ -1,10 +1,18 @@
 package account;
 
+import GAMELAB.Layout;
+
+import system.gamerDAO;
+import system.userDAO;
+
 import javax.swing.*;
 
 public class Login {
     JFrame frame = new JFrame("Game Lab");
     JPanel mypanel = new JPanel();
+
+    userDAO user = new userDAO();
+
 
     public void init() {
         frame.setSize(500, 300);
@@ -21,7 +29,7 @@ public class Login {
     private void setPanel(JPanel panel) {
         panel.setLayout(null);
 
-        JLabel LabelLogin = new JLabel("user", SwingConstants.RIGHT);
+        JLabel LabelLogin = new JLabel("Username", SwingConstants.RIGHT);
         JLabel LabelPasswd = new JLabel("Password", SwingConstants.RIGHT);
 
         JTextField TextLogin = new JTextField(5);
@@ -37,9 +45,19 @@ public class Login {
         JButton BtnLogin = new JButton("login");
         BtnLogin.setBounds(210, 180, 80, 40);
         BtnLogin.addActionListener((e) -> {
+
+            // Get the input from the JTextField and JPasswordField
+            String username = TextLogin.getText();
+            char[] passwordCharArray = TextPasswd.getPassword();
+            String password = new String(passwordCharArray);
+
+            boolean Login = user.Login(username, password);
             // verify the username & password while click login
-            if (false) {
+            if (Login) {
                 // Login successfully
+                new Layout().init();
+                frame.dispose();
+
             } else {
                 // Wrong passwd or username
                 JOptionPane.showMessageDialog(panel, "Wrong Password or Username", "error", JOptionPane.ERROR_MESSAGE);
@@ -53,7 +71,4 @@ public class Login {
         panel.add(BtnLogin);
     }
 
-    public static void main(String[] args) {
-        new Login().init();
-    }
 }

@@ -17,7 +17,7 @@ public class Layout {
 
         frame.getContentPane().setLayout(null);
 
-        JPanel PanelHeader = header.init();
+        JPanel PanelHeader = header.init(frame);
         JPanel PanelBody = body.init();
 
         PanelHeader.setBounds(0, 0, 1000, 50);

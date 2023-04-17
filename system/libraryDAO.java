@@ -14,13 +14,13 @@ import java.util.List;
 public class libraryDAO extends gameDAO{
 
     public int[] getGamesInLibrary(){
-        String libraryQuery = "SELECT libGameID FROM Library WHERE LibraryID = 4;"; // Test
+        String libraryQuery = "SELECT libGameID FROM Library WHERE LibraryID = ?;"; // Test
         List<Integer> gamesInLibrary = new ArrayList<>();
 
         try (Connection conn = DB.getConnection();
              PreparedStatement stLibrary = conn.prepareStatement(libraryQuery)) {
 
-            // stLibrary.setInt(1, Session.getInstance().getUserID());
+            stLibrary.setInt(1, Session.getInstance().getUserID());
             ResultSet rsLibrary = stLibrary.executeQuery();
 
             while (rsLibrary.next()) {

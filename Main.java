@@ -1,7 +1,8 @@
 import GAMELAB.Layout;
+import account.Login;
 
 public class Main {
     public static void main(String[] args) {
-        new Layout().init();
+        new Login().init();
     }
 }

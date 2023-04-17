@@ -14,13 +14,13 @@ import java.util.List;
 public class cartDAO extends gameDAO{
 
     public int[] getGamesInCart(){
-        String cartQuery = "SELECT cartGameID FROM Cart WHERE cartID = 4;"; // Test
+        String cartQuery = "SELECT cartGameID FROM Cart WHERE cartID = ?;"; // Test
         List<Integer> gamesInCart = new ArrayList<>();
 
         try (Connection conn = DB.getConnection();
              PreparedStatement stCart = conn.prepareStatement(cartQuery)) {
 
-            // stCart.setInt(1, Session.getInstance().getUserID());
+            stCart.setInt(1, Session.getInstance().getUserID());
             ResultSet rsCart = stCart.executeQuery();
 
             while (rsCart.next()) {
