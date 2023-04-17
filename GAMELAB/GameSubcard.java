@@ -1,5 +1,7 @@
 package GAMELAB;
 
+import system.gamerDAO;
+
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;
@@ -11,6 +13,8 @@ public class GameSubcard extends JPanel {
     String Intro;
     String Keyword;
     double Discount;
+
+    gamerDAO gamer = new gamerDAO();
 
     private JLabel LabelName;
     private JLabel LabelPrice;
@@ -88,6 +92,12 @@ public class GameSubcard extends JPanel {
                 JButton BtnRemove = new JButton("Remove");
                 BtnRemove.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnRemove.setBounds(210, 380, 80, 40);
+
+                BtnRemove.addActionListener(e -> {
+                    boolean isRemoved = gamer.remove(this.GameID);
+                    showMessageWindow(isRemoved);
+                });
+
                 this.add(BtnRemove);
                 break;
             case 1: // Store
@@ -95,21 +105,42 @@ public class GameSubcard extends JPanel {
                 BtnAdd.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnAdd.setBounds(100, 380, 80, 40);
 
+                BtnAdd.addActionListener(e -> {
+                    boolean isAdded = gamer.addToCart(this.GameID);
+                    showMessageWindow(isAdded);
+                });
+
                 JButton BtnBuy = new JButton("Buy");
                 BtnBuy.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnBuy.setBounds(210, 380, 80, 40);
+
+                BtnBuy.addActionListener(e -> {
+                    boolean isPurchased = gamer.purchase(this.GameID);
+                    showMessageWindow(isPurchased);
+                });
 
                 this.add(BtnBuy);
                 this.add(BtnAdd);
                 break;
             case 2: // Cart
-                JButton BtnBuyCart = new JButton("Delete");
+                JButton BtnBuyCart = new JButton("Buy");
                 BtnBuyCart.setFont(new Font("Serif", Font.PLAIN, 20));
-                BtnBuyCart.setBounds(100, 380, 80, 40);
+                BtnBuyCart.setBounds(210, 380, 80, 40);
 
-                JButton BtnDelete = new JButton("Buy");
+                BtnBuyCart.addActionListener(e -> {
+                    boolean isPurchasedCart = gamer.purchase(this.GameID);
+                    boolean isDeletedCart = gamer.delete(this.GameID);
+                    showMessageWindow(isPurchasedCart && isDeletedCart);
+                });
+
+                JButton BtnDelete = new JButton("Delete");
                 BtnDelete.setFont(new Font("Serif", Font.PLAIN, 20));
-                BtnDelete.setBounds(210, 380, 80, 40);
+                BtnDelete.setBounds(100, 380, 80, 40);
+
+                BtnDelete.addActionListener(e -> {
+                    boolean isDeleted = gamer.delete(this.GameID);
+                    showMessageWindow(isDeleted);
+                });
 
                 this.add(BtnBuyCart);
                 this.add(BtnDelete);
@@ -117,8 +148,21 @@ public class GameSubcard extends JPanel {
         }
     }
 
-    public void updateGameSubCard(String Name, double Price, String Intro, String Keyword, double Discount, int displayCase) {
+    public void showMessageWindow(boolean isSuccess) {
+        String message;
+
+        if (isSuccess) {
+            message = "Success and Refresh!";
+        } else {
+            message = "Fail, already in cart or lib";
+        }
+
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+    public void updateGameSubCard(int GameID, String Name, double Price, String Intro, String Keyword, double Discount, int displayCase) {
         // getGameInfo
+        this.GameID = GameID;
         this.Name = Name;
         this.Price = Price;
         this.Intro = Intro;

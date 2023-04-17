@@ -186,12 +186,13 @@ public class Body {
     }
 
     private void setGameSubCard(Game game, int displayCase) {
+        int GameID = game.getGameID();
         String GameName = game.getGameName();
         double Price = game.getPrice();
         String intro = game.getDescription();
         String KeyWords = String.join(", ", game.getKeywords());
 
-        this.gameSubcard.updateGameSubCard(GameName, Price, intro, KeyWords, 1.0, displayCase);
+        this.gameSubcard.updateGameSubCard(GameID, GameName, Price, intro, KeyWords, 1.0, displayCase);
     }
 
     private void setPagination() {

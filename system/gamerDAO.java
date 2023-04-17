@@ -7,17 +7,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+//change the former 4 function for test
 public class gamerDAO {
     public boolean addToCart(int GameID){
 
-        String query = "INSERT INTO Cart (CartID, cartGameID) VALUES (?, ?);";
+        // Check if the game already exists in the cart or the library
+        String checkGameQuery = "SELECT * FROM Cart WHERE CartID = 4 AND cartGameID = ? " +
+                                "UNION " +
+                                "SELECT * FROM Library WHERE LibraryID = 4 AND libGameID = ?;";
+
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement checkGameSt = conn.prepareStatement(checkGameQuery)) {
+
+            // Set query parameters
+            //checkGameSt.setInt(1, Session.getInstance().getUserID());
+            checkGameSt.setInt(1, GameID);
+            checkGameSt.setInt(2, GameID);
+
+            // Execute the query
+            ResultSet rs = checkGameSt.executeQuery();
+
+            // If a result exists, the game is already in the cart, so return false
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String query = "INSERT INTO Cart (CartID, cartGameID) VALUES (4, ?);";
 
 
         try(Connection conn = DB.getConnection();
             PreparedStatement st = conn.prepareStatement(query)){
 
-            st.setInt(1, Session.getInstance().getUserID());
-            st.setInt(2, GameID);
+            //st.setInt(1, Session.getInstance().getUserID());
+            st.setInt(1, GameID); // 2
 
             st.executeUpdate();
 
@@ -35,13 +63,35 @@ public class gamerDAO {
     //Purchase means add games to library directly
     public boolean purchase(int GameID){
 
-        String query = "INSERT INTO Library (LibraryID, libGameID) VALUES (?, ?);";
+        // Check if the game already exists in the cart
+        String checkGameQuery = "SELECT * FROM Library WHERE LibraryID = 4 AND libGameID = ?;";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement checkGameSt = conn.prepareStatement(checkGameQuery)) {
+
+            // Set query parameters
+            //checkGameSt.setInt(1, Session.getInstance().getUserID());
+            checkGameSt.setInt(1, GameID);
+
+            // Execute the query
+            ResultSet rs = checkGameSt.executeQuery();
+
+            // If a result exists, the game is already in the cart, so return false
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String query = "INSERT INTO Library (LibraryID, libGameID) VALUES (4, ?);";
 
         try(Connection conn = DB.getConnection();
             PreparedStatement st = conn.prepareStatement(query)){
 
-            st.setInt(1, Session.getInstance().getUserID());
-            st.setInt(2, GameID);
+            //st.setInt(1, Session.getInstance().getUserID());
+            st.setInt(1, GameID);// 2
 
             st.executeUpdate();
 
@@ -58,14 +108,14 @@ public class gamerDAO {
 
     //Delete the game from cart when this game has been purchased or just deleted
     public boolean delete(int GameID){
-        String query = "DELETE FROM Cart WHERE CartID = ? AND cartGameID = ?;";
+        String query = "DELETE FROM Cart WHERE CartID = 4 AND cartGameID = ?;";
 
         try (Connection conn = DB.getConnection();
              PreparedStatement st = conn.prepareStatement(query)) {
 
             // Set query parameters
-            st.setInt(1, Session.getInstance().getUserID());
-            st.setInt(2, GameID);
+            //st.setInt(1, Session.getInstance().getUserID());
+            st.setInt(1, GameID);// 2
 
             // Execute the query
             int affectedRows = st.executeUpdate();
@@ -87,14 +137,14 @@ public class gamerDAO {
 
     //Remove the game from library
     public boolean remove(int GameID){
-        String query = "DELETE FROM Library WHERE LibraryID = ? AND libGameID = ?;";
+        String query = "DELETE FROM Library WHERE LibraryID = 4 AND libGameID = ?;";
 
         try (Connection conn = DB.getConnection();
              PreparedStatement st = conn.prepareStatement(query)) {
 
             // Set query parameters
-            st.setInt(1, Session.getInstance().getUserID());
-            st.setInt(2, GameID);
+            //st.setInt(1, Session.getInstance().getUserID());
+            st.setInt(1, GameID);// 2
 
             // Execute the query
             int affectedRows = st.executeUpdate();
