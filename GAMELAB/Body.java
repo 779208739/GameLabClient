@@ -17,7 +17,7 @@ public class Body {
     JPanel Game = new JPanel();
     JPanel GameSet = new JPanel();
 
-    GameSubcard gameSubcard = new GameSubcard("Name", 10.10, "Intro", "Keywords");
+    GameSubcard gameSubcard = new GameSubcard();
     Navigation navigation = new Navigation();
     Pagination page = new Pagination(0);
     Search search = new Search();
@@ -130,6 +130,9 @@ public class Body {
             card.setLocation(0, 110 * index);
             GameSet.add(card);
 
+            if(index == 0){
+                setGameSubCard(game);
+            }
 
             // Add btn for updating GameSubcard
             JButton BtnGameSubcard = new JButton(">");
@@ -145,7 +148,7 @@ public class Body {
                 BtnGameSubcard.setBackground(Color.lightGray);
 
             BtnGameSubcard.addActionListener((e) -> {
-                ClickOnGameSubcard(BtnGameSubcard, card.GameID);
+                ClickOnGameSubcard(BtnGameSubcard, game);
             });
 
             GameSet.add(BtnGameSubcard);
@@ -156,8 +159,13 @@ public class Body {
 
     }
 
-    private void setGameSubCard(int GameID) {
-        this.gameSubcard.updateGameSubCard("UpdateName", 10.30, "updateIntro", "updateIntro", 0.8);
+    private void setGameSubCard(Game game) {
+        String GameName = game.getGameName();
+        double Price = game.getPrice();
+        String intro = game.getDescription();
+        String KeyWords = String.join(", ", game.getKeywords());
+
+        this.gameSubcard.updateGameSubCard(GameName, Price, intro, KeyWords, 1.0);
     }
 
     private void setPagination() {
@@ -243,7 +251,7 @@ public class Body {
         this.search.SearchNow = false;
     }
 
-    private void ClickOnGameSubcard(JButton BtnGameSubcard, int GameID) {
+    private void ClickOnGameSubcard(JButton BtnGameSubcard, Game game) {
         // Clickings will change the color of the btn
         Component[] componentList = GameSet.getComponents();
         for (Component btn : componentList) {
@@ -253,6 +261,6 @@ public class Body {
         }
 
         BtnGameSubcard.setBackground(Color.lightGray);
-        setGameSubCard(GameID);
+        setGameSubCard(game);
     }
 }

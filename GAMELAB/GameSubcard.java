@@ -5,12 +5,20 @@ import javax.swing.*;
 import java.awt.Font;
 
 public class GameSubcard extends JPanel {
-    int GameID = -1;
+    int GameID;
     String Name;
     double Price;
     String Intro;
     String Keyword;
     double Discount;
+
+    private JLabel LabelName;
+    private JLabel LabelPrice;
+    private JLabel LabelOriginPrice;
+    private JLabel LabelKeyword;
+    private JTextArea TextIntro;
+
+    GameSubcard(){}
 
     GameSubcard(String Name, double Price, String Intro, String Keyword, double Discount) {
         this.Name = Name;
@@ -38,23 +46,23 @@ public class GameSubcard extends JPanel {
         this.setBackground(Color.lightGray);
         this.setSize(300, 430);
 
-        JLabel LabelName = new JLabel(this.Name);
+        LabelName = new JLabel(this.Name);
         LabelName.setFont(new Font("Serif", Font.PLAIN, 35));
         LabelName.setBounds(10, 10, 295, 35);
 
-        JLabel LabelPrice = new JLabel("$ " + String.valueOf(this.Price * this.Discount), SwingConstants.RIGHT);
+        LabelPrice = new JLabel("$ " + String.valueOf(this.Price * this.Discount), SwingConstants.RIGHT);
         LabelPrice.setFont(new Font("Serif", Font.PLAIN, 38));
         LabelPrice.setBounds(190, 40, 100, 45);
 
-        JLabel LabelOriginPrice = new JLabel("$ " + String.valueOf(this.Price), SwingConstants.RIGHT);
+        LabelOriginPrice = new JLabel("$ " + String.valueOf(this.Price), SwingConstants.RIGHT);
         LabelOriginPrice.setFont(new Font("Serif", Font.PLAIN, 15));
         LabelOriginPrice.setBounds(10, 40, 50, 45);
 
-        JLabel LabelKeyword = new JLabel(this.Keyword);
+        LabelKeyword = new JLabel(this.Keyword);
         LabelKeyword.setFont(new Font("Serif", Font.PLAIN, 20));
         LabelKeyword.setBounds(10, 100, 290, 25);
 
-        JTextArea TextIntro = new JTextArea(this.Intro);
+        TextIntro = new JTextArea(this.Intro);
         TextIntro.setBounds(10, 160, 280, 200);
         TextIntro.setFont(new Font("Serif", Font.PLAIN, 20));
         TextIntro.setWrapStyleWord(true);
@@ -86,5 +94,12 @@ public class GameSubcard extends JPanel {
         this.Intro = Intro;
         this.Keyword = Keyword;
         this.Discount = Discount;
+
+        this.removeAll();
+        init();
+
+        // Repaint the UI to reflect the changes
+        this.revalidate();
+        this.repaint();
     }
 }
