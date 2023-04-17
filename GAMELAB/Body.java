@@ -80,7 +80,6 @@ public class Body {
                 // Store
                 GetGameID = storedao.getGameIDs();
 
-                //setSearch();
                 search.setLocation(10, 0);
 
                 MainPanel.add(search);

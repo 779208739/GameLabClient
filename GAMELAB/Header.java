@@ -24,8 +24,12 @@ public class Header {
 
         panel.setLayout(null);
         panel.setBackground(Color.lightGray);
-        JLabel LabelUsername = new JLabel(gamer0.getUserName(), SwingConstants.RIGHT);
-        LabelUsername.setBounds(800, 0, 60, 50);
+        JButton BtnUsername = new JButton(gamer0.getUserName());
+        BtnUsername.setBounds(800, 10, 100, 30);
+
+        BtnUsername.addActionListener(e -> {
+            viewGamerInfo(gamer0);
+        });
 
         JButton BtnLogout = new JButton("Logout");
         BtnLogout.setBounds(900, 10, 100, 30);
@@ -38,6 +42,32 @@ public class Header {
         });
 
         panel.add(BtnLogout);
-        panel.add(LabelUsername);
+        panel.add(BtnUsername);
+    }
+
+    private void viewGamerInfo(Gamer gamer){
+        JFrame frame = new JFrame("Gamer Info");
+
+        frame.setSize(250, 150);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        frame.add(panel);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        panel.add(new JLabel("Username: " + gamer.getUserName()), gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("UserID: " + gamer.getUserID()), gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Email: " + gamer.getEmail()), gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Phone: " + gamer.getPhone()), gbc);
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
