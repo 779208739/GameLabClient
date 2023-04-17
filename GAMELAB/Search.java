@@ -1,5 +1,7 @@
 package GAMELAB;
 
+import system.storeDAO;
+
 import java.util.List;
 import javax.swing.*;
 
@@ -10,10 +12,15 @@ public class Search extends JPanel {
     JComboBox<String> SearchType = new JComboBox<String>();
     JButton SearchBtn = new JButton("Search");
 
-    public static int[] GetGameIDs(String str, List<String> Keywords) {
 
-        int[] GameIDs = { 1, 2, 3 };
-        return GameIDs;
+    int[] gameIDs;
+
+    public Search(){
+        init();
+    }
+
+    public int[] getGameIDs(){
+        return gameIDs;
     }
 
     public void init() {
@@ -25,10 +32,16 @@ public class Search extends JPanel {
         SearchType.setBounds(250, 10, 150, 30);
         // Add types to the SearchType
         SearchType.addItem("All");
-        SearchType.addItem("Action");
-        SearchType.addItem("Romance");
+        SearchType.addItem("Action-Adventure");
+        SearchType.addItem("First-person shooter");
+        SearchType.addItem("RPG");
+        SearchType.addItem("Platformer");
+        SearchType.addItem("Simulation");
+        SearchType.addItem("Puzzle");
+        SearchType.addItem("Survival");
 
         SearchBtn.setBounds(470, 10, 100, 30);
+
 
         this.add(SearchBar);
         this.add(SearchType);

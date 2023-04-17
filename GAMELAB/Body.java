@@ -54,15 +54,13 @@ public class Body {
         // Set Navigation
         setNavigation();
 
-        // Set Search
         setSearch();
-        search.setLocation(10, 0);
 
         MainPanel.add(gameSubcard);
         MainPanel.add(GameSet);
         MainPanel.add(page);
         MainPanel.add(navigation);
-        MainPanel.add(search);
+
     }
 
     // Update the games(size is less than or equal to 4) in the main screen
@@ -75,31 +73,34 @@ public class Body {
             case 0:
                 // Lab
                 GetGameID = librarydao.getGamesInLibrary();
+                MainPanel.remove(search);
+
                 break;
             case 1:
                 // Store
                 GetGameID = storedao.getGameIDs();
+
+                //setSearch();
+                search.setLocation(10, 0);
+
+                MainPanel.add(search);
+
                 break;
             case 2:
                 // Cart
                 GetGameID = cartdao.getGamesInCart();
+                MainPanel.remove(search);
+
         }
 
+        MainPanel.revalidate();
+        MainPanel.repaint();
+
         // If search
-        if (this.search.SearchNow)
-            switch (this.navigation.IndexNow) {
-                case 0:
-                    // Lab
-                    GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7 };
-                    break;
-                case 1:
-                    // Store
-                    GetGameID = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-                    break;
-                case 2:
-                    // Cart
-                    GetGameID = new int[] { 11, 12 };
-            }
+        if (this.search.SearchNow){
+            GetGameID = this.search.gameIDs;
+        }
+
 
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
         if ((GetGameID.length - 1) / 4 == 0)
@@ -225,6 +226,18 @@ public class Body {
         this.search.init();
 
         this.search.SearchBtn.addActionListener((e) -> {
+
+            String searchBarText = this.search.SearchBar.getText().trim();
+            String searchType = (String) this.search.SearchType.getSelectedItem();
+
+            if (searchBarText.isEmpty()) {
+                // Call getGamesByType if SearchBar is empty
+                this.search.gameIDs = storedao.getGamesByType(searchType);
+            } else {
+                // Call searchGames if SearchBar has text
+                this.search.gameIDs = storedao.searchGames(searchBarText, searchType);
+            }
+
             ClickOnSearch();
         });
     }

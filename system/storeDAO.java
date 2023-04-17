@@ -14,28 +14,23 @@ import java.util.List;
 
 public class storeDAO extends gameDAO{
 
-    //limit is the number of games to fetch and offset is the starting point for fetching games
-    public int[] getGamesByType(String type, int limit, int offset) {
+
+    public int[] getGamesByType(String type) {
 
         //Click button "ALL" will show all games
         String query;
         if ("ALL".equalsIgnoreCase(type)) {
-            query = "SELECT GameID FROM Game LIMIT ? OFFSET ?;";
+            query = "SELECT GameID FROM Game";
         } else {
-            query = "SELECT GameID FROM Game WHERE Type = ? LIMIT ? OFFSET ?;";
+            query = "SELECT GameID FROM Game WHERE Type = ?";
         }
         List<Integer> gamesByType = new ArrayList<>();
 
         try (Connection conn = DB.getConnection();
              PreparedStatement stGames = conn.prepareStatement(query)) {
 
-            if ("ALL".equalsIgnoreCase(type)) {
-                stGames.setInt(1, limit);
-                stGames.setInt(2, offset);
-            } else {
+            if (!"ALL".equalsIgnoreCase(type)) {
                 stGames.setString(1, type);
-                stGames.setInt(2, limit);
-                stGames.setInt(3, offset);
             }
             ResultSet rsGames = stGames.executeQuery();
 
@@ -53,43 +48,18 @@ public class storeDAO extends gameDAO{
     }
 
     //Search games
-    public int[] searchGames(String input){
-        String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
-                "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
-                "WHERE g.Description LIKE ? OR g.GameName LIKE ? OR k.Keyword LIKE ?;";
+    public int[] searchGames(String input, String type) {
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT DISTINCT g.GameID FROM Game AS g " + "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " + "WHERE "
+        );
 
-
-        List<Integer> gamesByKeyword = new ArrayList<>();
-
-        try (Connection conn = DB.getConnection();
-             PreparedStatement stGames = conn.prepareStatement(query)) {
-
-            String keywordPattern = "%" + input + "%";
-            stGames.setString(1, keywordPattern);
-            stGames.setString(2, keywordPattern);
-            stGames.setString(3, keywordPattern);
-            ResultSet rsGames = stGames.executeQuery();
-
-            while (rsGames.next()) {
-                int gameID = rsGames.getInt("GameID");
-                gamesByKeyword.add(gameID);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DB.closeConnection();
+        if (!type.equals("All")) {
+            queryBuilder.append("g.Type = ? AND ");
         }
 
-        return gamesByKeyword.stream().mapToInt(Integer::intValue).toArray();
-    }
-    
-    //search games in specific type
-    public int[] searchGamesByType(String input, String type){
-        String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
-                "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
-                "WHERE g.Type = ? AND" +
-                "(g.Description LIKE ? OR g.GameName LIKE ? OR k.Keyword LIKE ?);";
+        queryBuilder.append("(g.Description LIKE ? OR g.GameName LIKE ? OR k.Keyword LIKE ?);");
 
+        String query = queryBuilder.toString();
 
         List<Integer> games = new ArrayList<>();
 
@@ -97,10 +67,14 @@ public class storeDAO extends gameDAO{
              PreparedStatement stGames = conn.prepareStatement(query)) {
 
             String keywordPattern = "%" + input + "%";
-            stGames.setString(1, type);
-            stGames.setString(2, keywordPattern);
-            stGames.setString(3, keywordPattern);
-            stGames.setString(4, keywordPattern);
+
+            int paramIndex = 1;
+            if (!type.equals("All")) {
+                stGames.setString(paramIndex++, type);
+            }
+            stGames.setString(paramIndex++, keywordPattern);
+            stGames.setString(paramIndex++, keywordPattern);
+            stGames.setString(paramIndex, keywordPattern);
 
             ResultSet rsGames = stGames.executeQuery();
 
