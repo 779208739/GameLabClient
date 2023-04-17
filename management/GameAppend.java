@@ -1,5 +1,7 @@
 package management;
 
+import system.adminDAO;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -21,12 +23,14 @@ public class GameAppend extends JPanel {
 
     JLabel labelName = new JLabel("Name: ");
     JLabel labelDes = new JLabel("Description: ");
+    JLabel labelPrice = new JLabel("Price: ");
     JLabel labelType = new JLabel("Type: ");
     JLabel labelImg = new JLabel("Image: ");
     JLabel labelKeywords = new JLabel("Keywords: ");
 
     JTextField Name = new JTextField();
     JTextArea Description = new JTextArea();
+    JTextField Price = new JTextField();
     JTextField Type = new JTextField();
     JTextField ImgPath = new JTextField("No image selected");
     JFileChooser fc = new JFileChooser();
@@ -36,24 +40,31 @@ public class GameAppend extends JPanel {
 
     List<JTextField> Keywords = new ArrayList<>();
 
+    adminDAO admin = new adminDAO();
+
     public void init() {
         this.setBackground(Color.GRAY);
-        this.setSize(600, 470);
+        this.setSize(600, 550);
         this.setLayout(null);
 
         labelName.setBounds(100, 20, 200, 30);
         labelDes.setBounds(100, 100, 200, 30);
-        labelType.setBounds(100, 220, 200, 30);
-        labelImg.setBounds(100, 300, 200, 30);
-        labelKeywords.setBounds(100, 380, 200, 30);
+        labelPrice.setBounds(100,220, 200, 30);
+        labelType.setBounds(100, 300, 200, 30);
+        labelImg.setBounds(100, 380, 200, 30);
+        labelKeywords.setBounds(100, 460, 200, 30);
 
         Name.setBounds(100, 50, 300, 40);
         Description.setBounds(100, 130, 300, 80);
-        Type.setBounds(100, 250, 300, 40);
-        ImgPath.setBounds(100, 330, 300, 40);
-        BtnAddImg.setBounds(40, 335, 40, 30);
-        BtnAddKeywords.setBounds(40, 415, 40, 30);
-        BtnSave.setBounds(420, 400, 160, 50);
+        Price.setBounds(100, 250, 300, 40);
+        Type.setBounds(100, 330, 300, 40);
+        ImgPath.setBounds(100, 410, 300, 40);
+        BtnAddImg.setBounds(40, 415, 40, 30);
+        BtnAddKeywords.setBounds(40, 495, 40, 30);
+        BtnSave.setBounds(420, 480, 160, 50);
+
+        Description.setLineWrap(true);
+        Description.setWrapStyleWord(true);
 
         LoadImg("static/pixel_test.png");
 
@@ -63,7 +74,7 @@ public class GameAppend extends JPanel {
 
         BtnAddKeywords.addActionListener((e) -> {
             JTextField OneKeyword = new JTextField();
-            OneKeyword.setBounds(100 + 75 * Keywords.size(), 410, 70, 40);
+            OneKeyword.setBounds(100 + 75 * Keywords.size(), 490, 70, 40);
             OneKeyword.setName("keyword");
             Keywords.add(OneKeyword);
             this.add(OneKeyword);
@@ -76,12 +87,28 @@ public class GameAppend extends JPanel {
         BtnSave.addActionListener((e) -> {
             // Add Game;
 
+            String name = Name.getText();
+            String description = Description.getText();
+            Double price = Double.valueOf(Price.getText());
+            String type = Type.getText();
+
+            List<String> image = new ArrayList<>();
+            image.add(ImgPath.getText());
+
+            List<String> keyword = new ArrayList<>();
+            for(JTextField Keyword : Keywords){
+                keyword.add(Keyword.getText());
+            }
+
+            admin.addGame(name, description, price, type, image, keyword);
+
             if (true) {
                 // Successfully add game
                 JOptionPane.showMessageDialog(this, "Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 Name.setText("");
                 Description.setText("");
+                Price.setText("");
                 Type.setText("");
                 ImgPath.setText("No image selected");
 
@@ -99,6 +126,7 @@ public class GameAppend extends JPanel {
 
         this.add(labelName);
         this.add(labelDes);
+        this.add(labelPrice);
         this.add(labelImg);
         this.add(labelType);
         this.add(labelKeywords);
@@ -106,6 +134,7 @@ public class GameAppend extends JPanel {
 
         this.add(Name);
         this.add(Description);
+        this.add(Price);
         this.add(Type);
         this.add(BtnAddImg);
         this.add(BtnAddKeywords);
@@ -145,7 +174,7 @@ public class GameAppend extends JPanel {
         // Add new img to the panel
         JLabel thumbnail = new JLabel(new ImageIcon(Img));
         thumbnail.setName("thumbnail");
-        thumbnail.setBounds(420, 210, 160, 160);
+        thumbnail.setBounds(420, 290, 160, 160);
         this.add(thumbnail);
 
         this.revalidate();

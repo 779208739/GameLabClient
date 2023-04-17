@@ -75,6 +75,27 @@ public class userDAO {
         return false;
     }
 
+    public boolean isGamer(){
+
+        String query = "SELECT * FROM Gamer WHERE GamerID = ?";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)){
+
+            st.setInt(1, Session.getInstance().getUserID());
+            ResultSet rs = st.executeQuery();
+
+            return rs.next();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.closeConnection();
+        }
+
+        return false;
+    }
+
     public boolean update(String userName, String newPassword){
 
         String query = "UPDATE User SET Password = ? WHERE UserName = ?";

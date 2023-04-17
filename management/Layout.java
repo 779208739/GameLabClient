@@ -6,7 +6,7 @@ public class Layout {
     JFrame frame = new JFrame("Game Management");
 
     public void init() {
-        frame.setSize(1000, 620);
+        frame.setSize(1000, 700);
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(null);
 

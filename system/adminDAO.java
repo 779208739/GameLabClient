@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class adminDAO {
     public boolean deleteGamer(int gamerID){
@@ -51,7 +52,7 @@ public class adminDAO {
         return false;
     }
 
-    public boolean addGame(Game game){
+    public boolean addGame(String GameName, String Description, Double Price, String Type, List<String> Image, List<String> Keyword ){
 
         //Game info is seperated in three tables, Game, Image and Keyword
         //Game.GameID = Image.IdGame_image, Game.GameID = Keyword.IdGame_keyword
@@ -68,10 +69,10 @@ public class adminDAO {
             //Make sure that all the information related to a game is inserted into the database
             conn.setAutoCommit(false);
 
-            stGame.setString(1, game.getGameName());
-            stGame.setString(2, game.getDescription());
-            stGame.setDouble(3, game.getPrice());
-            stGame.setString(4, game.getType());
+            stGame.setString(1, GameName);
+            stGame.setString(2, Description);
+            stGame.setDouble(3, Price);
+            stGame.setString(4, Type);
 
             int gameRowsAffected = stGame.executeUpdate();
 
@@ -82,7 +83,7 @@ public class adminDAO {
                     int gameID = rs.getInt(1);
 
                     //Insert images
-                    for(String image : game.getImages()){
+                    for(String image : Image){
                         stImage.setInt(1, gameID);
                         stImage.setString(2, image);
                         stImage.addBatch();
@@ -90,7 +91,7 @@ public class adminDAO {
                     stImage.executeBatch();
 
                     //Insert keywords
-                    for(String keyword : game.getKeywords()){
+                    for(String keyword : Keyword){
                         stKeyword.setInt(1, gameID);
                         stKeyword.setString(2, keyword);
                         stKeyword.addBatch();
