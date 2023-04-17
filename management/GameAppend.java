@@ -100,9 +100,9 @@ public class GameAppend extends JPanel {
                 keyword.add(Keyword.getText());
             }
 
-            admin.addGame(name, description, price, type, image, keyword);
+            boolean isAdded = admin.addGame(name, description, price, type, image, keyword);
 
-            if (true) {
+            if (isAdded) {
                 // Successfully add game
                 JOptionPane.showMessageDialog(this, "Success!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -117,6 +117,8 @@ public class GameAppend extends JPanel {
                     if (c.getName() == "keyword")
                         this.remove(c);
                 }
+                Keywords.clear(); // Clear the Keywords list
+                BtnAddKeywords.setEnabled(true); // Enable the button for adding new keywords
                 LoadImg("static/pixel_test.png");
 
             } else {
