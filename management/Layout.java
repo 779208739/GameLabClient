@@ -11,9 +11,12 @@ public class Layout {
         frame.getContentPane().setLayout(null);
 
         GameAppend gameappend = new GameAppend();
-        gameappend.init();
-        gameappend.setLocation(200, 50);
+        gameappend.setLocation(100, 50);
         frame.add(gameappend);
+
+        GamerRemove gamerremove = new GamerRemove();
+        gamerremove.setLocation(720, 50);
+        frame.add(gamerremove);
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class GameAppend extends JPanel {
     JLabel labelType = new JLabel("Type: ");
     JLabel labelImg = new JLabel("Image: ");
     JLabel labelKeywords = new JLabel("Keywords: ");
+    JLabel Title = new JLabel("Add a game", SwingConstants.RIGHT);
 
     JTextField Name = new JTextField();
     JTextArea Description = new JTextArea();
@@ -42,17 +44,23 @@ public class GameAppend extends JPanel {
 
     adminDAO admin = new adminDAO();
 
-    public void init() {
+    GameAppend() {
+        init();
+    }
+
+    private void init() {
         this.setBackground(Color.GRAY);
         this.setSize(600, 550);
         this.setLayout(null);
 
         labelName.setBounds(100, 20, 200, 30);
         labelDes.setBounds(100, 100, 200, 30);
-        labelPrice.setBounds(100,220, 200, 30);
+        labelPrice.setBounds(100, 220, 200, 30);
         labelType.setBounds(100, 300, 200, 30);
         labelImg.setBounds(100, 380, 200, 30);
         labelKeywords.setBounds(100, 460, 200, 30);
+        Title.setBounds(400, 20, 180, 50);
+        Title.setFont(new Font("Serif", Font.PLAIN, 20));
 
         Name.setBounds(100, 50, 300, 40);
         Description.setBounds(100, 130, 300, 80);
@@ -96,7 +104,7 @@ public class GameAppend extends JPanel {
             image.add(ImgPath.getText());
 
             List<String> keyword = new ArrayList<>();
-            for(JTextField Keyword : Keywords){
+            for (JTextField Keyword : Keywords) {
                 keyword.add(Keyword.getText());
             }
 
@@ -133,6 +141,7 @@ public class GameAppend extends JPanel {
         this.add(labelType);
         this.add(labelKeywords);
         this.add(ImgPath);
+        this.add(Title);
 
         this.add(Name);
         this.add(Description);
