@@ -56,7 +56,7 @@ public class storeDAO extends gameDAO{
     public int[] searchGames(String input){
         String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
                 "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
-                "WHERE g.Description LIKE ? OR k.Keyword LIKE ?;";
+                "WHERE g.Description LIKE ? OR g.GameName LIKE ? OR k.Keyword LIKE ?;";
 
 
         List<Integer> gamesByKeyword = new ArrayList<>();
@@ -67,6 +67,7 @@ public class storeDAO extends gameDAO{
             String keywordPattern = "%" + input + "%";
             stGames.setString(1, keywordPattern);
             stGames.setString(2, keywordPattern);
+            stGames.setString(3, keywordPattern);
             ResultSet rsGames = stGames.executeQuery();
 
             while (rsGames.next()) {
@@ -87,7 +88,7 @@ public class storeDAO extends gameDAO{
         String query = "SELECT DISTINCT g.GameID FROM Game AS g " +
                 "JOIN Keyword AS k ON g.GameID = k.IdGame_keyword " +
                 "WHERE g.Type = ? AND" +
-                "(g.Description LIKE ? OR k.Keyword LIKE ?);";
+                "(g.Description LIKE ? OR g.GameName LIKE ? OR k.Keyword LIKE ?);";
 
 
         List<Integer> games = new ArrayList<>();
@@ -99,6 +100,7 @@ public class storeDAO extends gameDAO{
             stGames.setString(1, type);
             stGames.setString(2, keywordPattern);
             stGames.setString(3, keywordPattern);
+            stGames.setString(4, keywordPattern);
 
             ResultSet rsGames = stGames.executeQuery();
 
