@@ -144,9 +144,11 @@ public class Body {
             if (index != 0) {
                 BtnGameSubcard.setBackground(new Color(221, 148, 53));
                 BtnGameSubcard.setForeground(Color.BLACK);
+                BtnGameSubcard.setSize(50, 100);
             } else {
                 BtnGameSubcard.setBackground(new Color(46, 46, 46));
                 BtnGameSubcard.setForeground(Color.WHITE);
+                BtnGameSubcard.setSize(60, 100);
             }
 
             // different buttons will be displayed
@@ -318,11 +320,13 @@ public class Body {
             if (btn instanceof JButton) {
                 btn.setBackground(new Color(221, 148, 53));
                 btn.setForeground(Color.BLACK);
+                btn.setSize(50, 100);
             }
         }
 
         BtnGameSubcard.setBackground(new Color(46, 46, 46));
         BtnGameSubcard.setForeground(Color.WHITE);
+        BtnGameSubcard.setSize(60, 100);
         setGameSubCard(game, displayCase);
     }
 }
