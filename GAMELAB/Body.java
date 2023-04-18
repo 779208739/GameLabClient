@@ -302,6 +302,8 @@ public class Body {
                 this.navigation.BtnCart.setForeground(Color.WHITE);
                 break;
         }
+
+        page.PreviousPage.setEnabled(false);
     }
 
     private void ClickOnSearch() {
