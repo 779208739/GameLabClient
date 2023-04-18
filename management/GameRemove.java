@@ -24,7 +24,7 @@ public class GameRemove extends JPanel {
 
         Title.setBounds(20, 20, 180, 50);
         Title.setForeground(Color.WHITE);
-        Title.setFont(new Font("Serif", Font.PLAIN, 20));
+        Title.setFont(new Font("Serif", Font.PLAIN, 25));
 
         LabelGameID.setBounds(20, 130, 80, 40);
         LabelGameID.setForeground(Color.WHITE);

@@ -19,16 +19,20 @@ public class GamerRemove extends JPanel {
     }
 
     private void init() {
-        this.setBackground(Color.GRAY);
+        this.setBackground(new Color(46, 46, 46));
         this.setLayout(null);
         this.setSize(200, 270);
 
         Title.setBounds(20, 20, 180, 50);
-        Title.setFont(new Font("Serif", Font.PLAIN, 20));
+        Title.setFont(new Font("Serif", Font.PLAIN, 25));
+        Title.setForeground(Color.WHITE);
 
         LabelGamerID.setBounds(20, 130, 80, 40);
+        LabelGamerID.setForeground(Color.WHITE);
         GamerID.setBounds(110, 130, 70, 40);
         BtnDelete.setBounds(20, 200, 160, 50);
+        BtnDelete.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnDelete.setForeground(Color.WHITE);
 
         BtnDelete.addActionListener((e) -> {
             // Delete(GamerID.getText())
