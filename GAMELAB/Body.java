@@ -117,7 +117,9 @@ public class Body {
 
         // Add GameCard
         // For each gamecard
+        gameSubcard.setVisible(false);
         for (int index = 0; index < showGameID.length; index++) {
+            gameSubcard.setVisible(true);
             int gameID = showGameID[index];
             entity.Game game = gamedao.getGameInfo(gameID);
 
@@ -222,7 +224,7 @@ public class Body {
         });
         // Initial
 
-        ClickOnNavigation(0);
+        ClickOnNavigation(1);
     }
 
     private void setSearch() {
