@@ -3,6 +3,8 @@ package account;
 import GAMELAB.Layout;
 import system.userDAO;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class Signup {
@@ -10,7 +12,6 @@ public class Signup {
     JPanel mypanel = new JPanel();
 
     userDAO user = new userDAO();
-
 
     public void init() {
         frame.setSize(500, 300);
@@ -26,11 +27,16 @@ public class Signup {
 
     private void setPanel(JPanel panel) {
         panel.setLayout(null);
+        panel.setBackground(new Color(46, 46, 46));
 
         JLabel LabelName = new JLabel("Username", SwingConstants.RIGHT);
+        LabelName.setForeground(Color.WHITE);
         JLabel LabelPasswd = new JLabel("Password", SwingConstants.RIGHT);
+        LabelPasswd.setForeground(Color.WHITE);
         JLabel LabelEmail = new JLabel("Email", SwingConstants.RIGHT);
+        LabelEmail.setForeground(Color.WHITE);
         JLabel LabelPhone = new JLabel("Phone", SwingConstants.RIGHT);
+        LabelPhone.setForeground(Color.WHITE);
 
         JTextField TextName = new JTextField(5);
         JPasswordField TextPasswd = new JPasswordField(5);
@@ -52,6 +58,8 @@ public class Signup {
         // btn for Signup
         JButton BtnSignup = new JButton("Signup");
         BtnSignup.setBounds(210, 210, 80, 40);
+        BtnSignup.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnSignup.setForeground(Color.WHITE);
         BtnSignup.addActionListener((e) -> {
 
             // Get the input from the JTextField and JPasswordField

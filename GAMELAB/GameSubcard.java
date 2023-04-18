@@ -22,7 +22,8 @@ public class GameSubcard extends JPanel {
     private JLabel LabelKeyword;
     private JTextArea TextIntro;
 
-    GameSubcard(){}
+    GameSubcard() {
+    }
 
     GameSubcard(String Name, double Price, String Intro, String Keyword, double Discount) {
         this.Name = Name;
@@ -45,28 +46,34 @@ public class GameSubcard extends JPanel {
 
     private void init(int displayCase) {
         this.setLayout(null);
-        this.setBackground(Color.lightGray);
+        this.setBackground(new Color(46, 46, 46));
         this.setSize(300, 430);
 
         LabelName = new JLabel(this.Name);
         LabelName.setFont(new Font("Serif", Font.PLAIN, 35));
+        LabelName.setForeground(Color.WHITE);
         LabelName.setBounds(10, 10, 295, 35);
 
         LabelPrice = new JLabel("$ " + String.valueOf(this.Price * this.Discount), SwingConstants.RIGHT);
+        LabelPrice.setForeground(Color.WHITE);
         LabelPrice.setFont(new Font("Serif", Font.PLAIN, 38));
         LabelPrice.setBounds(190, 40, 100, 45);
 
         LabelOriginPrice = new JLabel("$ " + String.valueOf(this.Price), SwingConstants.RIGHT);
+        LabelOriginPrice.setForeground(Color.RED);
         LabelOriginPrice.setFont(new Font("Serif", Font.PLAIN, 15));
         LabelOriginPrice.setBounds(10, 40, 50, 45);
 
         LabelKeyword = new JLabel(this.Keyword);
+        LabelKeyword.setForeground(Color.WHITE);
         LabelKeyword.setFont(new Font("Serif", Font.PLAIN, 20));
         LabelKeyword.setBounds(10, 100, 290, 25);
 
         TextIntro = new JTextArea(this.Intro);
         TextIntro.setBounds(10, 160, 280, 200);
+        TextIntro.setBackground(new Color(46, 46, 46));
         TextIntro.setFont(new Font("Serif", Font.PLAIN, 20));
+        TextIntro.setForeground(Color.WHITE);
         TextIntro.setWrapStyleWord(true);
         TextIntro.setLineWrap(true);
         TextIntro.setBorder(null);
@@ -92,6 +99,8 @@ public class GameSubcard extends JPanel {
                 JButton BtnRemove = new JButton("Remove");
                 BtnRemove.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnRemove.setBounds(210, 380, 80, 40);
+                BtnRemove.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+                BtnRemove.setForeground(Color.WHITE);
 
                 BtnRemove.addActionListener(e -> {
                     boolean isRemoved = gamer.remove(this.GameID);
@@ -104,6 +113,8 @@ public class GameSubcard extends JPanel {
                 JButton BtnAdd = new JButton("Add");
                 BtnAdd.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnAdd.setBounds(100, 380, 80, 40);
+                BtnAdd.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+                BtnAdd.setForeground(Color.WHITE);
 
                 BtnAdd.addActionListener(e -> {
                     boolean isAdded = gamer.addToCart(this.GameID);
@@ -111,6 +122,8 @@ public class GameSubcard extends JPanel {
                 });
 
                 JButton BtnBuy = new JButton("Buy");
+                BtnBuy.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+                BtnBuy.setForeground(Color.WHITE);
                 BtnBuy.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnBuy.setBounds(210, 380, 80, 40);
 
@@ -126,6 +139,8 @@ public class GameSubcard extends JPanel {
                 JButton BtnBuyCart = new JButton("Buy");
                 BtnBuyCart.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnBuyCart.setBounds(210, 380, 80, 40);
+                BtnBuyCart.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+                BtnBuyCart.setForeground(Color.WHITE);
 
                 BtnBuyCart.addActionListener(e -> {
                     boolean isPurchasedCart = gamer.purchase(this.GameID);
@@ -134,6 +149,8 @@ public class GameSubcard extends JPanel {
                 });
 
                 JButton BtnDelete = new JButton("Delete");
+                BtnDelete.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+                BtnDelete.setForeground(Color.WHITE);
                 BtnDelete.setFont(new Font("Serif", Font.PLAIN, 20));
                 BtnDelete.setBounds(100, 380, 80, 40);
 
@@ -160,7 +177,8 @@ public class GameSubcard extends JPanel {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    public void updateGameSubCard(int GameID, String Name, double Price, String Intro, String Keyword, double Discount, int displayCase) {
+    public void updateGameSubCard(int GameID, String Name, double Price, String Intro, String Keyword, double Discount,
+            int displayCase) {
         // getGameInfo
         this.GameID = GameID;
         this.Name = Name;

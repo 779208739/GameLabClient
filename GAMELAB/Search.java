@@ -1,6 +1,7 @@
 package GAMELAB;
 
 import system.storeDAO;
+import java.awt.Color;
 
 import java.util.List;
 import javax.swing.*;
@@ -35,7 +36,8 @@ public class Search extends JPanel {
         SearchType.addItem("Puzzle");
         SearchType.addItem("Survival");
 
-        SearchBtn.setBounds(470, 10, 100, 30);
+        SearchBtn.setBounds(480, 10, 100, 30);
+        SearchBtn.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
 
         this.add(SearchBar);
         this.add(SearchType);

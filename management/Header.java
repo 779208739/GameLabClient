@@ -20,12 +20,14 @@ public class Header {
 
         panel.setLayout(null);
         panel.setBackground(new Color(46, 46, 46));
-        JLabel Username = new JLabel("Administrator");
+        JLabel Username = new JLabel("Administrator", SwingConstants.RIGHT);
         Username.setForeground(Color.WHITE);
-        Username.setBounds(800, 10, 100, 30);
+        Username.setBounds(780, 10, 100, 30);
 
         JButton BtnLogout = new JButton("Logout");
-        BtnLogout.setBounds(900, 10, 100, 30);
+        BtnLogout.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnLogout.setForeground(Color.WHITE);
+        BtnLogout.setBounds(900, 10, 80, 30);
 
         BtnLogout.addActionListener((e) -> {
             // LogOut

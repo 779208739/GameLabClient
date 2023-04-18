@@ -1,8 +1,5 @@
 package GAMELAB;
 
-import java.awt.Color;
-import java.awt.Insets;
-
 import javax.swing.*;
 
 public class Navigation extends JPanel {

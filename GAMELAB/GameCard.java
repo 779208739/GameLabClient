@@ -53,7 +53,7 @@ public class GameCard extends JPanel {
         LoadImg();
 
         this.setLayout(null);
-        this.setBackground(Color.orange);
+        this.setBackground(new Color(46, 46, 46));
         this.setSize(500, 100);
 
         JLabel LabelImg = new JLabel(new ImageIcon(this.Img));
@@ -61,12 +61,15 @@ public class GameCard extends JPanel {
 
         JLabel LabelTitle = new JLabel(Name);
         LabelTitle.setFont(new Font("Serif", Font.PLAIN, 35));
+        LabelTitle.setForeground(Color.WHITE);
         LabelTitle.setBounds(150, 10, 350, 25);
 
         JLabel LabelType = new JLabel(this.Type);
+        LabelType.setForeground(Color.WHITE);
         LabelType.setBounds(150, 45, 350, 25);
 
         JLabel LabelKeyWord = new JLabel(this.KeyWords);
+        LabelKeyWord.setForeground(Color.WHITE);
         LabelKeyWord.setBounds(150, 70, 350, 25);
 
         this.add(LabelImg);

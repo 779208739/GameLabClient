@@ -49,27 +49,41 @@ public class GameAppend extends JPanel {
     }
 
     private void init() {
-        this.setBackground(Color.GRAY);
+        this.setBackground(new Color(46, 46, 46));
         this.setSize(600, 550);
         this.setLayout(null);
 
         labelName.setBounds(100, 20, 200, 30);
+        labelName.setForeground(Color.WHITE);
         labelDes.setBounds(100, 100, 200, 30);
+        labelDes.setForeground(Color.WHITE);
         labelPrice.setBounds(100, 220, 200, 30);
+        labelPrice.setForeground(Color.WHITE);
         labelType.setBounds(100, 300, 200, 30);
+        labelType.setForeground(Color.WHITE);
         labelImg.setBounds(100, 380, 200, 30);
+        labelImg.setForeground(Color.WHITE);
         labelKeywords.setBounds(100, 460, 200, 30);
+        labelKeywords.setForeground(Color.WHITE);
         Title.setBounds(400, 20, 180, 50);
-        Title.setFont(new Font("Serif", Font.PLAIN, 20));
+        Title.setFont(new Font("Serif", Font.PLAIN, 25));
+        Title.setForeground(Color.WHITE);
 
         Name.setBounds(100, 50, 300, 40);
         Description.setBounds(100, 130, 300, 80);
         Price.setBounds(100, 250, 300, 40);
         Type.setBounds(100, 330, 300, 40);
         ImgPath.setBounds(100, 410, 300, 40);
+
         BtnAddImg.setBounds(40, 415, 40, 30);
+        BtnAddImg.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnAddImg.setForeground(Color.WHITE);
         BtnAddKeywords.setBounds(40, 495, 40, 30);
+        BtnAddKeywords.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnAddKeywords.setForeground(Color.WHITE);
         BtnSave.setBounds(420, 480, 160, 50);
+        BtnSave.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnSave.setForeground(Color.WHITE);
 
         Description.setLineWrap(true);
         Description.setWrapStyleWord(true);

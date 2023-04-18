@@ -2,6 +2,8 @@ package account;
 
 import GAMELAB.Layout;
 import system.userDAO;
+import java.awt.Color;
+import java.awt.Label;
 
 import javax.swing.*;
 
@@ -10,7 +12,6 @@ public class Reset {
     JPanel mypanel = new JPanel();
 
     userDAO user = new userDAO();
-
 
     public void init() {
         frame.setSize(500, 300);
@@ -26,9 +27,12 @@ public class Reset {
 
     private void setPanel(JPanel panel) {
         panel.setLayout(null);
+        panel.setBackground(new Color(46, 46, 46));
 
         JLabel LabelName = new JLabel("Username", SwingConstants.RIGHT);
+        LabelName.setForeground(Color.WHITE);
         JLabel LabelPasswd = new JLabel("New Password", SwingConstants.RIGHT);
+        LabelPasswd.setForeground(Color.WHITE);
 
         JTextField TextName = new JTextField(5);
         JPasswordField TextPasswd = new JPasswordField(5);
@@ -42,6 +46,8 @@ public class Reset {
         // btn for reset
         JButton BtnReset = new JButton("Reset");
         BtnReset.setBounds(210, 180, 80, 40);
+        BtnReset.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnReset.setForeground(Color.WHITE);
         BtnReset.addActionListener((e) -> {
 
             // Get the input from the JTextField and JPasswordField
@@ -53,7 +59,8 @@ public class Reset {
 
             if (reset) {
 
-                JOptionPane.showMessageDialog(panel, "Reset password successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Reset password successful!", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
                 new Login().init();
                 frame.dispose();
 

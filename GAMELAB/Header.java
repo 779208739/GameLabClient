@@ -25,14 +25,18 @@ public class Header {
         panel.setLayout(null);
         panel.setBackground(new Color(46, 46, 46));
         JButton BtnUsername = new JButton(gamer0.getUserName());
-        BtnUsername.setBounds(800, 10, 100, 30);
+        BtnUsername.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnUsername.setForeground(Color.WHITE);
+        BtnUsername.setBounds(800, 10, 80, 30);
 
         BtnUsername.addActionListener(e -> {
             viewGamerInfo(gamer0);
         });
 
         JButton BtnLogout = new JButton("Logout");
-        BtnLogout.setBounds(900, 10, 100, 30);
+        BtnLogout.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnLogout.setForeground(Color.WHITE);
+        BtnLogout.setBounds(900, 10, 80, 30);
 
         BtnLogout.addActionListener((e) -> {
             // LogOut

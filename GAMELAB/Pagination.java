@@ -1,5 +1,6 @@
 package GAMELAB;
 
+import java.awt.Color;
 import javax.swing.*;
 
 public class Pagination extends JPanel {
@@ -19,6 +20,9 @@ public class Pagination extends JPanel {
         this.PreviousPage = new JButton("Previous");
         this.PreviousPage.setEnabled(false);
         this.LabelPage = new JLabel(PageNow + " / " + PageSize);
+
+        PreviousPage.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        NextPage.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
 
         this.NextPage.setBounds(400, 0, 100, 30);
         this.PreviousPage.setBounds(0, 0, 100, 30);

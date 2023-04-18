@@ -98,10 +98,9 @@ public class Body {
         MainPanel.repaint();
 
         // If search
-        //if (this.search.SearchNow){
-            //GetGameID = this.search.gameIDs;
-        //}
-
+        // if (this.search.SearchNow){
+        // GetGameID = this.search.gameIDs;
+        // }
 
         this.page.PageSize = (GetGameID.length - 1) / 4 + 1;
         if ((GetGameID.length - 1) / 4 == 0)
@@ -131,24 +130,27 @@ public class Body {
             card.setLocation(0, 110 * index);
             GameSet.add(card);
 
-
             // Add btn for updating GameSubcard
             JButton BtnGameSubcard = new JButton(">");
+            BtnGameSubcard.setForeground(Color.WHITE);
             BtnGameSubcard.setBorder(null);
             BtnGameSubcard.setBounds(510, 110 * index, 50, 100);
             // Set background color for btn
             BtnGameSubcard.setOpaque(true);
             BtnGameSubcard.setBorderPainted(false);
 
-            if (index != 0)
-                BtnGameSubcard.setBackground(Color.ORANGE);
-            else
-                BtnGameSubcard.setBackground(Color.lightGray);
+            if (index != 0) {
+                BtnGameSubcard.setBackground(new Color(221, 148, 53));
+                BtnGameSubcard.setForeground(Color.BLACK);
+            } else {
+                BtnGameSubcard.setBackground(new Color(46, 46, 46));
+                BtnGameSubcard.setForeground(Color.WHITE);
+            }
 
             // different buttons will be displayed
-            switch(this.navigation.IndexNow){
+            switch (this.navigation.IndexNow) {
                 case 0:
-                    if(index == 0){
+                    if (index == 0) {
                         setGameSubCard(game, 0);
                     }
 
@@ -159,7 +161,7 @@ public class Body {
                     GameSet.add(BtnGameSubcard);
                     break;
                 case 1:
-                    if(index == 0){
+                    if (index == 0) {
                         setGameSubCard(game, 1);
                     }
 
@@ -170,7 +172,7 @@ public class Body {
                     GameSet.add(BtnGameSubcard);
                     break;
                 case 2:
-                    if(index == 0){
+                    if (index == 0) {
                         setGameSubCard(game, 2);
                     }
 
@@ -278,19 +280,26 @@ public class Body {
         this.navigation.IndexNow = index;
         setGameSet();
 
-        this.navigation.BtnLibrary.setBackground(Color.white);
-        this.navigation.BtnStore.setBackground(Color.WHITE);
-        this.navigation.BtnCart.setBackground(Color.WHITE);
+        this.navigation.BtnLibrary.setBackground(new Color(221, 148, 53));
+        this.navigation.BtnStore.setBackground(new Color(221, 148, 53));
+        this.navigation.BtnCart.setBackground(new Color(221, 148, 53));
+
+        this.navigation.BtnLibrary.setForeground(Color.BLACK);
+        this.navigation.BtnStore.setForeground(Color.BLACK);
+        this.navigation.BtnCart.setForeground(Color.BLACK);
 
         switch (index) {
             case 0:
-                this.navigation.BtnLibrary.setBackground(Color.PINK);
+                this.navigation.BtnLibrary.setBackground(new Color(46, 46, 46));
+                this.navigation.BtnLibrary.setForeground(Color.WHITE);
                 break;
             case 1:
-                this.navigation.BtnStore.setBackground(Color.PINK);
+                this.navigation.BtnStore.setBackground(new Color(46, 46, 46));
+                this.navigation.BtnStore.setForeground(Color.WHITE);
                 break;
             case 2:
-                this.navigation.BtnCart.setBackground(Color.PINK);
+                this.navigation.BtnCart.setBackground(new Color(46, 46, 46));
+                this.navigation.BtnCart.setForeground(Color.WHITE);
                 break;
         }
     }
@@ -307,11 +316,13 @@ public class Body {
         Component[] componentList = GameSet.getComponents();
         for (Component btn : componentList) {
             if (btn instanceof JButton) {
-                btn.setBackground(Color.ORANGE);
+                btn.setBackground(new Color(221, 148, 53));
+                btn.setForeground(Color.BLACK);
             }
         }
 
-        BtnGameSubcard.setBackground(Color.lightGray);
+        BtnGameSubcard.setBackground(new Color(46, 46, 46));
+        BtnGameSubcard.setForeground(Color.WHITE);
         setGameSubCard(game, displayCase);
     }
 }
