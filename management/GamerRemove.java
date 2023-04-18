@@ -35,7 +35,7 @@ public class GamerRemove extends JPanel {
             int gamerID = Integer.parseInt(GamerID.getText());
             boolean isDeleted = admin.deleteGamer(gamerID);
             if (isDeleted) {
-
+                GamerID.setText("");
                 JOptionPane.showMessageDialog(this, "Delete successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
