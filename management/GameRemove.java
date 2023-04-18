@@ -5,7 +5,7 @@ import system.adminDAO;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameRemove extends JPanel{
+public class GameRemove extends JPanel {
     JLabel Title = new JLabel("Delete a game");
     JLabel LabelGameID = new JLabel("GameID:");
     JTextField GameID = new JTextField();
@@ -18,16 +18,20 @@ public class GameRemove extends JPanel{
     }
 
     private void init() {
-        this.setBackground(Color.GRAY);
+        this.setBackground(new Color(46, 46, 46));
         this.setLayout(null);
         this.setSize(200, 270);
 
         Title.setBounds(20, 20, 180, 50);
+        Title.setForeground(Color.WHITE);
         Title.setFont(new Font("Serif", Font.PLAIN, 20));
 
         LabelGameID.setBounds(20, 130, 80, 40);
+        LabelGameID.setForeground(Color.WHITE);
         GameID.setBounds(110, 130, 70, 40);
         BtnDelete.setBounds(20, 200, 160, 50);
+        BtnDelete.setBorder(BorderFactory.createLineBorder(new Color(221, 148, 53)));
+        BtnDelete.setForeground(Color.WHITE);
 
         BtnDelete.addActionListener((e) -> {
             // Delete(GamerID.getText())
