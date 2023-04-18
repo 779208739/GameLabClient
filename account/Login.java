@@ -56,10 +56,12 @@ public class Login {
             // verify the username & password while click login
             if (Login == true && isGamer == true) {
                 // Login successfully
-                new Layout().init();
+                new GAMELAB.Layout().init();
                 frame.dispose();
-
-            } else {
+            } else if(Login == true && isGamer == false){
+                new management.Layout().init();
+                frame.dispose();
+            } else{
                 // Wrong passwd or username
                 JOptionPane.showMessageDialog(panel, "Wrong Password or Username", "error", JOptionPane.ERROR_MESSAGE);
             }
