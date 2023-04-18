@@ -23,7 +23,7 @@ public class Header {
         Gamer gamer0 = gamer.getGamerInfo();
 
         panel.setLayout(null);
-        panel.setBackground(Color.lightGray);
+        panel.setBackground(new Color(46, 46, 46));
         JButton BtnUsername = new JButton(gamer0.getUserName());
         BtnUsername.setBounds(800, 10, 100, 30);
 
@@ -45,7 +45,7 @@ public class Header {
         panel.add(BtnUsername);
     }
 
-    private void viewGamerInfo(Gamer gamer){
+    private void viewGamerInfo(Gamer gamer) {
         JFrame frame = new JFrame("Gamer Info");
 
         frame.setSize(250, 150);
