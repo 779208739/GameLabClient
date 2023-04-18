@@ -248,13 +248,10 @@ public class Body {
     }
 
     private void ClickOnNext() {
-        if (isSearchActive) {
-            this.page.PageNow++;
-        } else {
-            this.page.PageNow++;
-            if (this.page.PageNow == this.page.PageSize)
-                this.page.NextPage.setEnabled(false);
-        }
+        System.out.println(this.page.PageNow + "   " + this.page.PageSize);
+        this.page.PageNow++;
+        if (this.page.PageNow == this.page.PageSize)
+            this.page.NextPage.setEnabled(false);
 
         this.page.PreviousPage.setEnabled(true);
         this.page.updateLabel();
@@ -262,13 +259,10 @@ public class Body {
     }
 
     private void ClickOnPrevious() {
-        if (isSearchActive) {
-            this.page.PageNow--;
-        } else {
-            this.page.PageNow--;
-            if (this.page.PageNow == 1)
-                this.page.PreviousPage.setEnabled(false);
-        }
+        System.out.println(this.page.PageNow + "   " + this.page.PageSize);
+        this.page.PageNow--;
+        if (this.page.PageNow == 1)
+            this.page.PreviousPage.setEnabled(false);
 
         this.page.NextPage.setEnabled(true);
         this.page.updateLabel();
@@ -311,6 +305,8 @@ public class Body {
     private void ClickOnSearch() {
 
         isSearchActive = true;
+        page.PreviousPage.setEnabled(false);
+
         setGameSet();
 
     }
