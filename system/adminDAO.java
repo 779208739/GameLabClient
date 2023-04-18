@@ -104,21 +104,7 @@ public class adminDAO {
             }
         }catch (SQLException e) {
             e.printStackTrace();
-            try {
-                if (DB.getConnection() != null) {
-                    DB.getConnection().rollback();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         } finally {
-            try {
-                if (DB.getConnection() != null) {
-                    DB.getConnection().setAutoCommit(true);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
             DB.closeConnection();
         }
 
@@ -127,20 +113,36 @@ public class adminDAO {
     }
 
     public boolean deleteGame(int gameID){
+        String libraryQuery = "DELETE FROM Library WHERE libGameID = ?;";
+        String cartQuery = "DELETE FROM Cart WHERE cartGameID = ?;";
         String gameQuery = "DELETE FROM Game WHERE GameID = ?;";
         String keywordQuery = "DELETE FROM Keyword WHERE IdGame_keyword = ?;";
         String imageQuery = "DELETE FROM Image WHERE IdGame_image = ?;";
 
-        try (Connection con = DB.getConnection();
-             PreparedStatement stGame = con.prepareStatement(gameQuery);
-             PreparedStatement stKeyword = con.prepareStatement(keywordQuery);
-             PreparedStatement stImage = con.prepareStatement(imageQuery)) {
+        Connection con = null;
+        PreparedStatement stLibrary = null;
+        PreparedStatement stCart = null;
+        PreparedStatement stGame = null;
+        PreparedStatement stKeyword = null;
+        PreparedStatement stImage = null;
+
+        try {
+            con = DB.getConnection();
+            stLibrary = con.prepareStatement(libraryQuery);
+            stCart = con.prepareStatement(cartQuery);
+            stGame = con.prepareStatement(gameQuery);
+            stKeyword = con.prepareStatement(keywordQuery);
+            stImage = con.prepareStatement(imageQuery);
 
             con.setAutoCommit(false);
 
-            // Delete game
-            stGame.setInt(1, gameID);
-            int gameRows = stGame.executeUpdate();
+            // Delete library entries
+            stLibrary.setInt(1, gameID);
+            stLibrary.executeUpdate();
+
+            // Delete cart entries
+            stCart.setInt(1, gameID);
+            stCart.executeUpdate();
 
             // Delete keywords
             stKeyword.setInt(1, gameID);
@@ -150,6 +152,9 @@ public class adminDAO {
             stImage.setInt(1, gameID);
             stImage.executeUpdate();
 
+            // Delete game
+            stGame.setInt(1, gameID);
+            int gameRows = stGame.executeUpdate();
             con.commit();
 
             if (gameRows > 0) {

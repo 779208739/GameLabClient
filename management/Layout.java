@@ -17,8 +17,12 @@ public class Layout {
         frame.add(gameappend);
 
         GamerRemove gamerremove = new GamerRemove();
-        gamerremove.setLocation(720, 100);
+        gamerremove.setLocation(720, 380);
         frame.add(gamerremove);
+
+        GameRemove gameremove = new GameRemove();
+        gameremove.setLocation(720, 100);
+        frame.add(gameremove);
 
         Header header = new Header();
         JPanel PanelHeader = header.init(frame);
@@ -30,8 +34,5 @@ public class Layout {
 
     }
 
-    public static void main(String[] args) {
-        new Layout().init();
-    }
 
 }
